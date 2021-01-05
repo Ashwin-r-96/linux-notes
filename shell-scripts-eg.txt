@@ -1,0 +1,302 @@
+exec 3<> file1.txt
+echo "hello" >>&3
+exec 3>&-
+
+######################################################ways of declaring array:###########################################################################################################
+read -a array1
+
+declare -a array1
+array1[0]="joey"
+array1[1]="chandler"
+
+array1=("joey" "chandler" 4 5)
+
+array1=([0]="joey" [1]="chandler" 3)
+
+dmsetup info -c -o name,blkdevname,blkdevs_used,devnos_used
+iostat -hymx 1 2
+
+vgimportclone --basevgname vg1 /dev/sdc /dev/sdd
+lvdisplay -m lvname-->to see stripe size
+lvs -a -o+devices | grep pmove
+
+/etc/idmapd.conf
+
+#########################################################################################################################################################################
+nfs cofiguration with firewalld disabled
+
+server-side:
+yum install nfs-utils*
+sytemctl start rpcbind nfs-server.service
+sytemctl enable rpcbind nfs-server.service
+/etc/idmapd.conf-->to enter domain name we use for both vm
+/etc/hosts-->make entry for both vm 
+/etc/exports-->/nfs-server	192.168.1.14(rw,sync,no_root_squash)
+exportfs -arv
+showmount -e    -->list the exporting content of nfs-server
+
+client-side:
+yum install nfs-utils*
+systemctl start rpcbind
+systemctl enable rpcbind
+/etc/idmapd.conf-->to enter domain name we use for both vm
+/etc/hosts--> make entry for both vm(since we are not using dns)
+showmount -e 192.168.1.15---> displays the exported directories from nfs-server(if its not working, there might be a issue in config)
+mkdir /nfs-client
+mount -t nfs 192.168.1.15:/nfs-server /nfs-client
+mount | grep nfs--> it gives how the file system mount via nfs
+
+incase firewall enabled on nfs-server side, we have to add below lines, no need to worry about whether firewall in running or stopped state in nfs-client
+firewall-cmd --permanent --zone=public --add-port=2049/tcp --add-service=nfs
+firewall-cmd --reload
+the above two lines allow the nfs-server to export its directory to client
+
+################################################################################################################################################################################
+
+postfix configuration:
+
+MUA --> Mail User Agent (we are using it to send mail eg:outlook,gmail)
+MDA --> Mail Delivery Agent (it is used to send mail to internal domain i.e, not using internet to connect to other domain)
+MTA --> Mail Transfer Agent (it is used to send mail to different domains)
+MSA --> Mail Submission Agent (runs on 587/tcp,MTA is configured with MSA and it tests for spam/viruses in mails and filter it out before entering the firewall)
+SMTP --> Simple Mail Transfer Protocol ( for sending mail)
+IMAP --> Internet Message Access Protocol (for receiving mail)
+POP --> Post Office Protocol (for receiving mail)
+if mail can be downloaded in offline using MUA , then POP is working otherwise IMAP is working
+
+postsuper -d ALL
+
+
+###############mail server side configuration:
+vi /etc/hosts
+yum install postfix
+systemctl start postfix
+systemctl enable postfix
+firewall-cmd --permanent --add-service=smtp --zone=public
+firewall-cmd --permanent --add-port=25/tcp --zone=public
+firewall-cmd --reload
+vi /etc/postfix/main.cf
+myhostname = linux-vm1.example.com
+mydomain = example.com
+myorigin = $mydomain
+inet_interfaces = all
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+mynetworks = 192.168.1.0/24, 127.0.0.0/8
+
+setsebool -P allow_postfix_local_write_mail_spool on (The above SELinux boolean will allow Postfix to write to the mail spool in the central server.)
+systemctl restart postfix
+
+################client side configuration:
+vi /etc/hosts
+yum install postfix
+systemctl start postfix
+systemctl enable postfix
+vi /etc/postfix/main.cf
+myhostname = linux-vm2.example.com
+mydomain = example.com
+myorigin = $mydomain
+inet_interfaces = loopback-only
+mydestination =
+relayhost = 192.168.1.15
+systemctl restart postfix
+echo "hello supe do u bleed!!" | mail -s "question" superman@linux-vm1.example.com
+mailq --> command to check whether the mail transferred properly
+mail --> command to check the mails in our queue
+telnet linux-vm1 25
+ehlo linux-vm1
+mail from: userid@linux-vm1.example.com
+rcpt to: userid@linux-vm2.example.com
+data
+subject: testing
+content of mail
+.
+bye
+
+################################################################################################################################################################
+yum install vsftpd
+yum remove vsftpd
+yum update sudo
+yum downgrade sudo
+yum reinstall sudo --->to resolve the installation issues
+yum list sudo --> to check whether the package is installed or available to install,, it shows from which repo the package got installed, or from which repo we can install the available package
+yum list installed | less --> to get information about installed packages 
+yum list available | less --> to get information about available packages for system
+yum search telnet --> search for a package with known word
+yum provides date --> to find which package provides command date
+yum info tar --> to get a information about package
+yum install vsftpd --downloadonly --downloaddir=/tmp  --> download a package and not install it under mentioned directory
+yum check-update --> check for update
+yum check-update --security
+yum update --> update system in single go
+yum update --exclude kernel* --> exclude updating kernel while system update
+yum history --> to see the id each with performed yum actions
+yum history info id-number --> to get information of a action performed with the id in the yum history command
+yum history undo id-number --> to revert back the yum command
+yum history redo id-number --> to redo the yum installation again
+yum repolist --> to get a list of repositories comfigured on our machine
+yum repolist all --> shows both installed and disabled repo in our system
+yum repolist disabled --> shows disabled repositories
+yum install unifont --enablerepo=epel-testing --> enable the particular repo to install package
+yum install httpd --disablerepo=* --enablerepo=base --> make sure the httpd install from particular repo and disable duplicate repositories
+yum grouplist --> list available groups and environments for our system
+yum groupinstall "server with GUI" --> install packages in a group to configure system to particular state
+yum makecache --> download and make usable all the metadata,like packages, for the currently enabled yum repositories,faster the transaction of packages installation
+yum clean all -->  /var/cache/yum/ to clear cache under this directory(rm -rf /var/cache/yum/)
+yum shell --> yum has its own interactive shell to do any action
+install vsftpd
+run
+exit
+yum --help, man yum --> to get help for yum commands
+yum-config-manager --enable reponame
+yum-config-manager --disable reponame
+yum install yum-utils --> yum-utils to use the command yumdownloader
+yumdownloader postfix --resolve --destdir /tmp --> downloading the package not installing
+
+####################################################################### SAMBA CONFIGURATION with selinux in enforcing state ###############################################################################################################
+ALT + SHIFT + arrow key
+
+grep -i '^s.*m.*b*' /usr/share/dict/words   ---> how the author found the name samba
+
+Server side:
+  mkdir /winshare
+  ls -ld /winshare
+  yum install samba
+  groupadd clients
+  chgrp clients /winshare
+  chmod -R 2775 /winshare/
+  ls -ld /winshare/
+  cd /etc/samba
+  ls
+  vi smb.conf
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+  [forwin]    ----> in windows we can see the share /winshare in the name of forwin
+	comment = share for windows
+        path = /winshare
+	public = no
+	writable = yes
+	browseable = yes 
+	valid user = student
+	write list = @salesgroup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  testparm
+  useradd student
+  usermod -a -G clients student
+  id student
+  yum install samba-client
+  smbpasswd -a student
+  systemctl start smb
+  systemctl enable smb
+  firewall-cmd --list-all
+  firewall-cmd --permanent --add-service=samba
+  firewall-cmd --reload
+  firewall-cmd --list-all
+  clear
+  testparm
+  smbclient -L //192.168.1.6
+  chcon -R -t samba_share_t /winshare        --------------> setting context is important in order to read write on the mount point from client side
+  ls -ldZ /winshare/
+  systemctl restart smb
+  testparm
+
+ In Client side:
+ yum install cifs-utils -yes
+ yum install samba-client -yes
+ smbclient -L //192.168.1.8
+ mkdir -p /test/samba
+ mount -o username=student //192.168.1.6.forwin /test/samba
+ 
+ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ $     samba multi user share:					  $$
+ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+ mkdir /secondshare
+ useradd smbuser1
+ useradd smbuser2
+ groupadd smbgroup
+ usermod -a -G smbgroup smbuser1
+ usermod -a -G smbgroup smbuser2
+ chgrp smbgroup /secondshare
+ chmod 2775 /secondshare
+ vi /etc/samba/smb.conf
+ 
+ [secondshare]
+	comment = second share for windows
+	path = /sambashare
+	public = no
+	writable = yes
+	browseable = yes
+	write list = @smbgroup
+
+ testparm
+ chcon -R -t samba_share_t /sambashare
+ systemctl restart smb
+ smbpasswd -a smbuser1
+ smbpasswd -a smbuser2
+ smbclient -L //192.168.1.6
+ systemctl restart smb
+ 
+ client side:
+ yum install cifs-utils
+ yum install samba-client
+ vi multi-user.txt --> file holds user and password detail
+ username=smbuser1
+ password=redhat
+ mkdir -p /secondshare
+ vi /etc/fstab
+ //192.168.1.6/secondshare	/secondshare	cifs	credentials=/root/multi-user.txt,multiuser,sec=ntlmssp	0	0
+ mount -a
+ useradd smbuser1
+ useradd smbuser2
+ passwd smbuser1
+ redhat
+ passwd smbuser2
+ redhat
+ su - smbuser1
+ cd /secondshare
+ ls or touch --> fails
+ cifscreds add 192.168.1.6
+ now smbuser1 can ls or touch file since he is a member of group smbgroup
+ su - smbuser2
+ cifscreds add 192.168.1.6
+ he cannot touch the file created by smbuser1
+ this is multi user share
+ 
+ man mount.cifs  --> here we can see sec option used in fstab
+ 
+#################################################################################################################################################################################
+FirewallD:
+Drop zone--> drop all requests without any message
+Block zone--> same like drop but icmp reply works
+Public
+External--> when we use firewall as a gateway, configured for NAT
+Internal--> other side of external, some computers are trusted
+DMZ--> only certain incoming connections are allowed
+Work
+Home
+Trusted
+Firewall-cmd --state
+Firewall-cmd --get-zones
+Firewall-cmd --list-all-zones
+Firewall-cmd --set-default-zone=home
+Firewall-cmd --zone=home --change-interface=enp0s3
+Firewall-cmd --get-active-zone
+Systemctl restart firewalld --> will restore the changed interaface zone to default one, to avoid this we have to make entry in /etc/sysconfig/network-scripts/ifcfg-enps03 file,,, zone=home
+Then systemctl restart network, systemctl  restart firewalld, firewall-cmd -- reload, firewall-cmd --set-default-zone=home
+Now firewall-cmd --get-active-zone --> this shows the interface in home zone
+Firewall-cmd --get-services --> to list out the available services in the vm  (/usr/lib/firewalld/services)
+Firewall-cmd --permanent --add-port=80
+Firewall-cmd --permanent --add-service=samba
+Firewall-cmd --permanent --add-host=192.168.1.6
+Man 5 firewalld.richlanguage  ---> shows the examples for rich rule
+Nmcli d
+Firewall-cmd --get-zone-of-interface=enps03
+Firewall-cmd --panic-on
+Firewall-cmd --query-panic
+Firewall-cmd --query-masquerade
+Firewall-cmd --permanent --zone=public --add-masquerade
+Firewall-cmd --zone=public --remove-masquerade
+Firewall-cmd --zone=public --permanent --add-forward-port=port=22:proto=tcp:toport=2468
+Firewall-cmd --zone=public --permanent --add-forward-port=port=22:proto=tcp:toport=2222:toaddr=192.168.1.2
+Firewall-cmd --zone=public --permanent --query-forward-port=port=22:port=tcp:toport=2222:toaddr=192.168.1.2
+
+########################################################################################################################################################################################
+

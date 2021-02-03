@@ -1,0 +1,93 @@
+##########################################################################################################################################################
+															DEVOPS
+##########################################################################################################################################################
+
+Software Development Life Cycle:
+waterfall
+spiral
+Source Code Management(SCM) --> GIT
+ANT and MAVEN-->build tools to compile the files and build
+once build done it will be become executable called as artifact(collection of files)
+nexus --> it is store the artifacts(inventory for artifacts)
+then deploy it to the server(linux), this server should have application server in place(tomcat,weblogic[oracle product],websphere[IBM],jboss[redhat]
+glass fish
+configuration management-->ansible,chef,puppet,saltstak
+
+integration part-->(scm,maven,nexus)
+deployment part-->(infra where app deployed)
+the above process involves manual integration and manual deployment, to automate those we brought in frame work called CI CD/CD
+CI-->continuous integration
+CD-->continuous deployment
+CD-->continuous delivery
+for this we use jenkins or bamboo or team city or gocd or anthilpro
+
+azure-->lack of certified debian image and cost of advanced router it too high
+IBM-->strong backend network infra
+rackspace,GCP-->no static ip
+Verizon-->no proper support
+EC2-->iaas
+s3-->storage
+cloud watch-->azure monitor
+cloud formation-->ARM template
+VPC-->networking in aws(amazon virtual private cloud)
+
+EC2:
+1.	Instances:
+on-demand,reserved(can save 70%),spot(already created and left servers available for bidding, not preferable unless testing)(in spot we have option to make sure the instance stay with us for 6 hrs)
+while creating a instance we have to download the private key so that we can make connection with the vm
+PEM format so that we can access the instance using Mobaxterm,covert PEM to PPK format key-pair file so that we can use putty to access it
+EBS(ELastic Block Store)
+Mobaxterm
+AMI-->Amazon Machine Image
+XEN virtualization
+
+Creating instances:
+quick start or my ami or market place or community ami
+LAMPstack ami--> LinuxApacheMysqlPhp(available in market place)
+
+options in creating instances:
+shutdown behaviour-->stop or terminate(terminate will remove the instance on shutdown)
+protect from accidental termination
+Cloud watch with detailed monitoring options enable monitoring for every one minute
+tenacy--> allowed shared instance
+68-->dhcp
+88-->kerberos
+139-->samba
+65536-->count of ports possible
+above 1024 only can be used for custom
+ec2-user  --> default user id created by aws
+
+Volumes:
+general purpose(baseline of 3 iops per gb)
+provisioned iops(here we can set any iops value)
+cold hdd
+throughput optimized hdd(data transfer concerned)
+magnetic
+inside volume, we can create one and once available, we can attach it to the machine, we can edit the volume to resize it anytime also
+snapshot is a option under EBS where we can see the taken snapshots
+snapshot is actually a copy of vm data and stored it in some cheaper storage medium(hdd),when we want to restore data from the snapshot, we have to create a voulme from snapshot and attach that volume on to machine, then mount the volume to mount point in vm, so that we can access the data.
+
+Network:
+Class A-->1 to 126(2^24-2)
+Class B-->128 to 191(2^16-2)
+class C-->192 to 223(2^8-2 -->hosts per network possible)
+Class D-->224 to 239(reserved for multicasting)
+class E-->240 to 254(experimental, used for research)
+Private ip addresses:
+10.0.0.0(10.0.0.0-10.255.255.255)
+172.16.0.0(172.16.0.0-172.31.255.255)
+192.168.0.0(192.168.0.0-192.168.255.255)
+example in home:in our router we have private ip address only assigned but we do have one public ip at network provider level so that we can establish connection with internet
+what is my ip -->it is a website to know our ip
+subnet calculator-->website
+
+Default vpc-->instances in this can have both private and public ip
+non-default vpc-->instance in this can have only private ip(this instance can be accessed through elastic ip address,vpn or internet gateway), elastic ip address means static one
+default vpc has default route resource in it, which has internet gateway in it, to allow communication between instances and internet(we can disable that auto enabling of public ip in the default vpc--modify auto assign ip address)
+
+create a vpc, create two subnets public-subnet and private-subnet
+create a route table-->its main status in "off" means that route table created by us, (public-route)
+create a internet gateway and attach that to created vpc
+now we have to connect route table to public-subnet, go to route tables-->choose public-route-->routes-->add routes(dest-->0.0.0.0/0,target-->internet gw)
+now subnet association in the route table,, attach the pub-subnet to the route table
+Under VPC , we can see elastic ip option, there we have to select allocate new ip address so that public ip can be created then attach it to the instance(this will be permanent)

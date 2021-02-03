@@ -1,0 +1,140 @@
+It is used to compile all the files and move it to private inventory called nexus
+compiling,executing,packaging
+it is end to  end project management
+compiles types:
+for c and c++--> make
+for .NET--> Nant
+for java--> Ant,Maven,gradle
+gradle requires a new coding knowledge
+Ant and maven are product of apache
+
+Disadvantages of using Ant:
+	1. requires scripting knowledge to work on build(build.xml)
+	2. no dependencies management
+	3. no project structure is defined
+	4. no project documentation
+
+webapplication-->gmail in web form
+standalone application-->desktop antivirus, we have to install it ,inorder to run it
+mobile application-->all mobile apps
+
+no project structure defined-->each application has different directory structure, in ANT we need to create the structure, but in maven it would be created automatically
+auto documentation possible in maven
+
+Advantages of Maven:
+	1. no need of scripts(pom.xml) automatically it will create
+	2. dependencies are downloaded automatically(libraries will be downloaded)
+	3. project structure is defined automatically
+	4. project documentation readily available
+	5. it has plugins
+
+Life cycle of Maven:
+	1. validate
+	2. compile
+	3. test
+	4. package
+	5. verify
+	6. install --> install it on private repo called nexus
+	7. deploy --> deploy it on dev or UAT
+
+Maven has central repository which holds all dependencies for all projects and archetypes for projects
+(https://repo.maven.apache.org/maven2/)
+
+pom.xml(Project Object Model):
+
+Whenever we do configure pom.xml, we need to configure GAV
+
+G --> Groupid -->it should be always unique --> ex. reverse of loan project in citibank(com.citibank.loan)
+
+A --> Artifactid --> it is the name given by developer when we package the exe
+
+V --> Version --> we can specify different version number for release
+	Snapshot--> snapshots can be multiple and it is for backup purpose
+	Release--> final version(only one release)
+
+Archetype --> its an xml file, holds the directory structure of all project, suppose we use standalone project,then this archetype has a directory structure for it
+archetype is a template to provide directory structure for a project we create
+
+Installing java JDK and maven:
+yum whatprovides java
+yum install javajdk
+Two ways to install maven:
+https://www.tecmint.com/install-apache-maven-on-centos-7/
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+mvn --version
+mvn archetype:generate
+1736: remote -> org.apache.maven.archetypes:maven-archetype-quickstart (An archetype which contains a sample Maven project.)
+Define value for property 'groupId': com.init6tech.project1
+Define value for property 'artifactId': SampleApp
+Define value for property 'version' 1.0-SNAPSHOT: :
+Define value for property 'package' com.init6tech.project1: :
+Confirm properties configuration:
+groupId: com.init6tech.project1
+artifactId: SampleApp
+version: 1.0-SNAPSHOT
+package: com.init6tech.project1
+ Y: : y
+
+Now SampleApp project created--> inside it we can see pom.xml and src
+install tree package to get clear view of the path under src(two paths one for testing and one for main)
+first step is to validate it: --> go inside package SampleApp and give command mvn validate (we get output build success, this is mainly based on pom.xml)
+under root home we can see a hidden file .m2 which holds the projects downloaded from maven central repo, so that we can use in case of any need, if no there then the dependency will be downloaded from central and stored it here so that the new project created can use it.
+
+2nd step mvn compile --> this results in a target directory which holds the executable class
+mvn clean --> removes the target directory
+
+mvn compile
+mvn test --> to test the executables, it creates a xml file under target which can be used by QA/testing team for analysis(target-->surefire-reports-->xml file)(JUNIT is for testing)
+mvn package --> /root/lol-project/target/lol-project-1.0-SNAPSHOT.jar (this will be created, to test it we can use java command, since we dont have maven plugin to use mvn command to deploy it)
+java -cp /root/lol-project/target/lol-project-1.0-SNAPSHOT.jar com.xyz.project1.App
+o/p:Hello World
+
+Creating webapp:
+mvn archetype:generate | grep -i webapp --> to list the id's having webapp associated with it
+id 1347 is for standalone app(.jar)
+id 1352,(1741 for now) is for webapp(.war)
+mvn package
+once packaging done,it is stored as a artifact(it is classified as server artifact and client artifact)
+server artifact needs to be deployed in the application server(Os needs to be choosed depends on code which we build the app, then choose the middleware(application server)
+client artifact can be stored in a server(like ftp server), whoever wants it can download and use it,that simple
+now we have to deploy the source code in application server, so create a instance and pass on the .war package to the tomcat
+go to tomcat website and copy the link of tomcat(https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz)
+mkdir /tomcat, cd /tomcat, wget https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.63/bin/apache-tomcat-8.5.63.tar.gz
+tar -xvzf apache-tomcat-8.5.63.tar.gz
+cd apache-tomcat-8.5.63
+cd bin
+./startup.sh -->before this make sure the java package is installed in the machine(java-1.7.0-openjdk-1.7.0.261-2.6.22.2.amzn2.0.1.x86_64)
+netstat -tuplan | grep 8080 --> to check whether the apache tomcat is listening or not
+./startup.sh --> to stop the apache tomcat
+edit security group to add rule for port 8080, so that we can access apache with http://publicip:8080
+if we try to access manager option, it throws error since we try to access apache from machin other than the one where we installed apache,
+so edit context.xml file(find / -name context.xml,,make entry for allow as "./*")
+127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1  --->replace it with "./*"
+edit /tomcat/apache-tomcat/conf/tomcat-users.xml
+here we have to add below two lines
+<role rolename="manager-gui"/>
+<user username="tomcat" password="tomcat" roles="manager-gui"/>
+now execute shutdown.sh and startup.sh
+now we can access the apache tomcat page and we can get into the manager option with user id tomcat and password tomcat
+copy the webapp.war from source to apache-tomcat vm
+cp webapp.war /home/ec2-user
+chmod 777 /home/ec2-user/webapp.war
+vi client-key.pem
+chmod 600 client-key.pem
+ssh -i client-key.pem root@tomcatserverip
+scp -i client-key.pem webapp.war ec2-user@tomcatserverip:/tmp/
+cp /tmp/webapp.war /tomcat/apachetomcat/webapps/
+now go to browser and try to access the webapp in the manager console(display output Hello World)
+now go to source machine(maven), edit index.jsp(add new line Hello Devops)
+now run mvn package
+copy that new webapp.war package to destination tomcat machine as mention in above steps
+stop and start apache tomcat, then access the webpage 
+
+####################################################################################
+export M2_HOME=/usr/local/src/apache-maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+From <https://www.tecmint.com/install-apache-maven-on-centos-7/> 
+#####################################################################################

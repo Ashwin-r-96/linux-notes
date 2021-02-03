@@ -1,0 +1,81 @@
+GIT
+
+01 February 2021
+08:54
+
+#################################################### DAY 1 #########################################################################
+Source Code Management(GIT):
+its a version control
+its a distributed SCM
+
+History of SCM:
+VCS(version control system)(1980)
+CVS(concurrent version system)(1986)
+SVN(sub version)(2000)
+bit keeper(old one)(1998)
+
+architecture of SCM:
+	1. Centralized-->requires alway live central repo, so that clients can make changes in central server, incase of network bandwidth issue, client cannot save the updates in repo and incase of central server failure we lost the data
+	2. Distributed-->in this local repo will be created inside each client, once he made changes he can push and commit it in central repo whenever network is fine for him, also incase of central repo failure, we still have codes in our local
+
+
+In local repo, we have three stages(workspace,staging or index area,local repo)
+	1. create a repo in the github.com(its a free repo managed by someone), then get the http link of it, then go to a drive in laptop and create a folder of any name "demo",right click and choose use git bash here, then inside git bash use the command "git clone http://pathwegotfromgithub ", so that the main repo can be cloned in local machine
+	2. Once cloning done, go inside the repo and put git status, it will say the current status of the repo.
+	3. touch new file inside that bash, now check git status  --> it will ask us to push file to staging area(file name will be in red color)
+	4. git add file2-testing(now file added to staging or index area, now check git status file name available in green color)
+	5. now transfer the file to local repo using command git commit -m "adding new file"
+	6. before step 5 , we add user name and mail id using commands git config --global user.email ashwinfromagur@outlook.com , git config --global user.name ashwin
+	7. in the setting of repo, we can go to manage access option and add collaborator so that the user can push his changes to the remote repo from local repo(this is to avoid giving the credential of a admin of repo)
+
+commands followed on day1:
+git clone http://path
+git status
+touch file
+git status
+git add file or git add .
+git status
+git config --global user.email ashwinfromagur@outlook.com
+git config --global user.name ashwin
+git commit -m "second try"
+git push
+git pull
+
+##############################################  DAY 2#####################################################################
+Roll back changes
+	1. soft (local repo to staging to workspace to change made)
+	2. Hard(delete it)
+
+git log
+git log --oneline
+git reset --soft gitid(returning file in local repo to staging)
+git reset HEAD filename(returning the change in staging to workspace)
+git checkout -- filename(returning change in workspace to clearing it)
+
+git reset --hard gitid-->complete delete it without any step by step
+
+git branch --list  -->list out the available branches
+git branch module1--> create a new branch module1
+git checkout module1-->change to branch module1(file created in one branch wont be available to other branches),(eg:release branch,hotfix branch,feature branch)
+git push origin module1 --> to push new data to new module in the remote repo(github.com)
+git branch -D module1 --> to delete a branch
+git diff file1 file2 or git diff branch1 branch2
+git init
+
+git remote add origin https://
+git pull origin master
+
+Stages where merge conflict can happen:
+developers working in different branches ,different files then no conflict
+developers working in different branches,same file and different lines then no conflict
+developers working in different branches,same file and same lines then conflict
+ to resolve it we can abort it or do manual resolution or use third party tool to auto merge it
+git merge --abort
+
+git stash
+git stash apply --> apply the last one stashed
+git stash list --> stash list
+git stash push -m "message" --> push the changes to stash with message for reference
+git stash drop stashid --> drop the stashes
+git stash pop 1 --> put the stashes back to file and drop it from stash list
+git stash clear --> clear all stashes

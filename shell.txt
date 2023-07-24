@@ -120,6 +120,10 @@ find . -type f -exec cat {} \;
 find . -type f -size +10M -size -20M
 find . -type f | xargs ls -l
 find . -type f | xargs cat
+find /path/to/directory -type f -newermt '2023-01-01' ! -newermt '2023-01-31' 
+find /path -type -mtime -30 -exec ls -l {} \; --> to list files modified in last 30 days
+find /path -type -mtime +30 -exec ls -l {} \; --> to list files modified before 30days(more than 30days)
+find / -type f ! -user ash -exec ls -l {} \; --> to list all files which are not owned by ash
 
 GLOBAL REGULAR EXPRESSION:
 grep option wordtobesearched searchedfromfile

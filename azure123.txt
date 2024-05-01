@@ -1,0 +1,1847 @@
+Azure account center to manage subscriptionss
+set-Azurermcontext
+Connect-AzAccount
+az account set --subscription subsname
+we can move subscriptions accross management groups
+https://docs.microsoft.com/en-us/azure/virtual-machines/ev3-esv3-series
+Voucher Id :   MSCV38872399
+https://docs.microsoft.com/en-us/learn/certifications/exams/az-103?tab=tab-learning-paths 
+
+Azure AD connect:
+Password hash synchronization
+pass through authentication
+Federation integration--> optional one 
+Synchronization--> Responsible for creating users, groups, and other objects
+Health monitoring
+
+[ disable the staging mode and configure the Password hash synchronization ]
+
+NGINX is a web server
+
+A record in DNS is for hostname to IP resolution
+PTR record in DNS is for IP to hostname resolution
+
+Cloud-init in azure--> You can use cloud-init to install packages and write files, or to configure users and security.
+
+WALA[Linux agent]
+
+az vmss scale --resource-group "whixlab-rg" --name whizlab-set --new-capacity 4--> command to be used in CLI to change the capacity.
+
+Variable packet capture--> Its a tool to check the network intrusions.[based on 5 tuple--> protocol, local ip, remote ip, local port, remote port]
+
+IP flow verify--> Its a tool to check the network intrusions.
+*************************************************NETWORK WATCHER*****************************************************************************
+Topology – Provides a network level view showing the various interconnections and associations between network resources in a resource group.
+Variable Packet capture – Captures packet data in and out of a virtual machine. Advanced filtering options and fine-tuned controls such as being able to set time and size limitations provide versatility. The packet data can be stored in a blob store or on the local disk in .cap format.
+IP flow verify – Checks if a packet is allowed or denied based on flow information 5-tuple packet parameters (Destination IP, Source IP, Destination Port, Source Port, and Protocol). If the packet is denied by a security group, the rule and group that denied the packet is returned.
+Next hop – Determines the next hop for packets being routed in the Azure Network Fabric, enabling you to diagnose any misconfigured user-defined routes.
+Security group view – Gets the effective and applied security rules that are applied on a VM.
+NSG Flow logging – Flow logs for Network Security Groups enable you to capture logs related to traffic that are allowed or denied by the security rules in the group. The flow is defined by a 5-tuple information – Source IP, Destination IP, Source Port, Destination Port and Protocol.
+Virtual Network Gateway and Connection troubleshooting – Provides the ability to troubleshoot Virtual Network Gateways and Connections.
+Network subscription limits – Enables you to view network resource usage against limits.
+Configuring Diagnostics Log – Provides a single pane to enable or disable Diagnostics logs for network resources in a resource group.
+Connectivity (Preview) – Verifies the possibility of establishing a direct TCP connection from a virtual machine to a given endpoint.
+******************************************************************************************************************************
+
+Address space in VNET then create a subnet with that address space, then create a VM in the subnet.
+
+Cloud tiering--> is an optional feature of Azure File Sync in which frequently accessed files are cached locally on the server while all other files are tiered to Azure Files based on policy settings.
+
+No archive tier in General purpose version 1. Both General purpose version 2 and Blob has the archive tier.
+
+General purpose version 2--> Standard, Premium,[Hot,Cool,Archive], [LRS,ZRS,GRS,RA-GRS], [Resource manager]
+General purpose version 1--> Standard, Premium, [LRS,GRS,RA-GRS], [Resource manager, Classic]
+Block Blob storage--> Premium, [LRS], [Resource manager]
+File--> Premium, [LRS], [Resource manager]
+Blob storag-->  Standard,[Hot,Cool,Archive], [LRS,GRS,RA-GRS], [Resource manager]
+performance --> standard(GPv2), premium --> premium account type(block blob-lrs,zrs , file share-lrs,zrs , page blob-lrs)
+
+
+10 vm's in a subscription--> You need to ensure that you receive an email message when any virtual machines are powered off, restarted, or deallocated.--> 3 rules and 1 action group
+
+We can move entire VNET[resource] from one resource group to another resource group
+we can move resources across rg or subs
+
+
+C. From Windows PowerShell, run the
+New-AzureADUserAppRoleAssignment
+cmdlet
+
+Deployments option in the Resource group blade to see the timeline of when the resources has been created in it.
+
+During the testing phase, auditors in the finance department must be able to review all Azure costs from the past week.--> Invoices
+
+Sync the data file from azure file storage to on premise server--> C. Create a sync group.D. Register Server1.E. Install the Azure File Sync agent on Server1
+
+import job in server done--> import in the sense importing files from server to azure storage account, if u r preparing drives for importing job, following prerequisite must met
+B. a driveset CSV file
+C. a dataset CSV file
+dataset.csv
+driveset.csv
+hddid.dll
+Microsoft.Data.Services.Client.dll
+Microsoft.WindowsAzure.Storage.dll
+Microsoft.WindowsAzure.Storage.pdb
+Microsoft.WindowsAzure.Storage.xml
+WAImportExport.exe
+WAImportExport.exe.config
+WAImportExport.pdb
+WAImportExportCore.dll
+WAImportExportCore.pdb
+WAImportExportRepair.dll
+WAImportExportRepair.pdb
+
+Inorder to delete the recovery services vault, we have to stop the backup of each backup item first.
+Within an Azure subscription, you can create up to 500 Recovery Services vaults per subscription per region.
+
+Disk can be resized only when they are either detached from vm or vm in deallocated state
+You need to identify unused disks that can be deleted from storage account--> From Microsoft Azure Storage Explorer, view the Account Management properties.
+
+You can find unused disks in the Azure Storage Explorer console.[through the GUI console] or we can use the powershell to delete the unused disk.
+VHD with status with unlocked and available means no resources is using the VHD, we can delete it.--> in azure portal--> drill to the blob of the storage account.
+in storage explorer if we drills to blob there we can see the VHD properties, if the VM name and lease status not available, it means no resource is using the disk.
+
+cloudyn to azure cost management--> to determine the underutilized resources.
+
+Computer1 ---> VM1[VM1 should be started first so that computer1 can take RDP to VM1]--> NSG rule setted as default-allow all inbound with value 1000
+
+automate deployment of VMSS to ensure that it contains web server components pre installed--> Modify the extensionProfile section of the Azure Resource Manager template,B. Create a new virtual machine scale set in the Azure portal.
+
+object replication in storage accounts:
+data protection section --> enable blob versioning(at source and destination), enable blob change feed(at source)
+
+
+You plan to make the following changes to VM1:
+Change the size to D8s v3.--> requires VM downtime 
+Add a 500-GB managed disk.
+Add the Puppet Agent extension.--> solution to automate the repetitive tasks.
+Attach an additional network interface.--> require server to be stopped
+
+Redeploy blade--> to move vm to different host2, becoz of maintenance in the host1--> in portal--> setting option of vm blade there we can see the redeploy option
+Set-AzureRmVM -Redeploy -ResourceGroupName $rgname -Name $vmname--> powershell command to redeploy the vm.
+
+Deployment option in Resourcegroup blade to view the timelines of resources, like when it was created.
+
+B. Run idfix.exe, and then use the Edit action.
+IdFix is used to perform discovery and remediation of identity objects and their attributes in an on-premises Active Directory environment in preparation for migration to Azure Active Directory.
+IdFix is intended for the Active Directory administrators responsible for directory synchronization with Azure Active Directory.
+
+B. Add http://autologon.microsoftazuread-sso.com to the intranet zone of each client computer in the Miami office.
+D. Install Azure AD Connect on a server in the Miami office and enable Pass-through Authentication
+in Pass-through authentication credentials are checked in on premise.
+
+an Azure Key Vault and an access policy-->to make the password stored securely and an access policy to define which resource should access it from key vault.
+
+From the Licenses blade of Azure AD, assign a license to particular users.
+
+TCP port 445 for file sharing
+
+Provision virtual network gateways--> to connect the vnet1 to vnet2
+
+************************************************************************************************************************************************************
+VM password - 12 to 123 characters length.
+should have one lower case, one upper case and one special character
+VNet, vm, Public IP, NSG, NIC, Disk--> created vm includes all these resources in resource group
+3389--> RDP connection port.
+22--> SSH port 
+connect vm through RDP file, select server manager option-->Add roles and features--> server roles[web server(iis)]
+vm blade--> networking option--> add inbound rule--> then we can access IIS of vm from base machine using public ip.[http://localhost/--> inside the created VM to see IIS]
+
+Authentication in VM creation --> either password or ssh connection[only for linux machine the SSH option available]
+
+Linux VM creation: 
+Advance Packaging Tool--> APT
+sudo apt-get update--> to update all packages of the particular linux system.[newly created linux VM]
+sudo apt-get install -y nginx-->nginx is a web server
+we have to edit the networking option in vm blade to enable the connection from base machine to the created on browser.[set nsg rule for port tcp--> 80] 
+
+######## Powershell in azure: ****************
+Set-ExecutionPolicy RemoteSigned
+Install-Module -Name Az -Allowclobber -Scope CurrentUser
+Import-Module Az -Verbose
+Connect-AzAccount--> login using azure account
+Get-AzResourceGroup -Location centralus
+Lab - Setting up PowerShell - Practice commands
+// Allow remote signed scripts to run
+Set-ExecutionPolicy RemoteSigned
+//Installing the Azure PowerShell modules
+Install-Module -Name Az -AllowClobber -Scope CurrentUser
+// Import all the Azure modules
+Import-Module Az -Verbose
+// Connect to your Azure account
+Connect-AzAccount
+// Get all resource groups running in a particular region
+Get-AzResourceGroup -Location centralus
+
+
+Azure command line interface(CLI) is mainly for working with azure resources unlike powershell which can be used for many resources:
+1. First download the Azure command line interface tool
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
+az login--> either in commandprompt or in powershell--> sign in on our azure account
+2. You can issue the following command to list the resource groups in a particular location
+az group list --query "[?location=='westus']" 
+
+
+Azure cloud shell:
+Browser based one, can be used via browser or portal powershell option.
+storage account is mandatory inorder to use the azure cloud shell
+if creating storage account newly for the cloud shell, give name for both cloudshell and file share
+THE AZURE CLOUD SHELL ACCEPTS BOTH POWERSHELL COMMANDS AND COMMAND LINE INTERFACE COMMANDS.
+
+ADDING DISK:
+Better IOPS, Better Throughput, choose disk of higher size
+vm blade--> disks--> create new disk, once done--> make sure to click save to attach it automatically to the VM.
+RDP VM--> server manager--> File and storage services--> Disks--> Initialize the newly attached disk and create a New volume, then i will be reflected on file manager
+While creating VM and choosing its size, make sure the choosing of VM size wisely, depends on it only we can add certain count of disks.
+
+************ VM Creation using powershell and CLI, it automatically creates NSG, NIC, DISKS, Networking inboud rule(RDP 3389)*******
+Azure CLI for quickly creating a virtual machine
+az vm create --resource-group azuredemo --name demovm --image win2016datacenter --admin-username demousr --admin-password AzurePortal@123
+
+PowerShell command for quickly creating a virtual machine
+New-AzVm -ResourceGroupName azuredemo -Name backupvm -Location CentralUS -Image win2016datacenter -Credential (Get-Credential)
+
+************** soft delete of VM *****************
+vm with recovery services vault--> go to vault--> select the backup item--> here we can stop backup and delete the backed up file--> though its deleted the recovery service vault holds it for another 14 days
+so we can retrive the data again
+To delete RSV first we have to delete everything in backup item tab inside the RSV, still we cant delete the RSV becoz of the soft delete option, to disable the soft delete
+we have to go to properties tab of RSV then security settings--> Soft delete disabled--> Save
+************** availability set *************
+It is to met sla of 99.95% incase of hardware failure
+It is possible to give availability set for VM's at the time of its creation, we cannot give availability set for existing VM's
+Fault domain--> to withstand incase of hardware failure(host server)[ max 3 fault domains ]
+Update domain--> to withstand incase of maintenance window[ max 20 uodate domains ]
+we can either create availability set service first then attach it while creating the new VM else we can create it while creating the new vm.
+In order to delete the Availability set, we have to delete the VM's attached to the Availability set first, then only we can remove the availability set.here in availability set we can find an option to use it for managed vm only(select or unselect it depends on vm gonna be used)
+********************************** Adding the data disk **********************************
+PowerShell command for adding a data disk
+$resourcegroup = 'azuredemo'
+$machinename = 'demovm'
+$location = 'Central US'
+$storageType = 'Premium_LRS'
+$dataDiskName = 'newdisk01'
+$dataDiskSize = 10
+$datadiskConfig = New-AzDiskConfig -SkuName $storageType -Location $location -CreateOption Empty -DiskSizeGB $dataDiskSize
+$dataDisk01 = New-AzDisk -DiskName $dataDiskName -Disk $datadiskConfig -ResourceGroupName $resourcegroup
+$vm = Get-AzVM -Name $machinename -ResourceGroupName $resourcegroup
+$vm = Add-AzVMDataDisk -VM $vm -Name $dataDiskName -CreateOption Attach -ManagedDiskId $dataDisk01.Id -Lun 1
+Update-AzVM -VM $vm -ResourceGroupName $resourcegroup
+
+New-Azdiskconfig -resourcegroupname testrg -location uksouth -createoption empty -disksizegb '20gb' -skuname 'premium_lrs"
+
+we can change disk type between premium ssd,standard ssd, standard hdd. but not from or to ultra ssd. inorder to change the disk config, first stop the vm, then change its storage type
+**************************************Adding secondary network interface*******************************************************************
+Go to VM blade--> Networking option-->create new NIC
+one NIC to take traffic and one for internal communication
+if a vm is already associated with a NIC and currently running we cannot directly add a another NIC on it, first it need to be stopped/deallocated in order to do it.
+if we stop VM, if dynamic IP is enabled in NIC1 ,it will be lost if it is stopped, so better click the ip and change the option to static, it might require a reboot of vm
+once VM stopped/deallocated, we can attach NIC2
+NIC1 will be the primary one and all other NIC will comes to secondary category
+*************************************** Custom script extension **********************************
+it is a tool used in azure vm to download and execute the script
+it is ideal in case of installing custom application in VM
+the scripts are stored in either storage account or in GIT hub
+the script can run for 90 mins, donot put reboot command in script, once rebooted the tool wont work
+desired state config, chef and puppet--> like custom script but can have reboot commands
+Please create a new file as "InstallIIS.ps1" and place the following commands in the file
+	import-module servermanager
+	add-windowsfeature web-server -includeallsubfeature
+the file should be saved as .ps1 extension then, for checking go to networking option in vm tab and open port 80[http], then go to extension option in vm blade and select custom script extension and upload the file and give okay, if we access vm via public ip via http[80] it will show the IIS
+
+
+**********************// Apply custom script extensions for a Linux Virtual Machine************************************************
+
+az vm extension set --resource-group azuredemo --vm-name linuxvm --name customScript --publisher Microsoft.Azure.Extensions --settings customscript.json
+
+This chapter has the configuration file attached as a resource. Please ensure you have a GitHub account and attach the URL for your account.
+
+1--> In the GitHub account , create a repository and add a file named install_web.sh1 that has the following contents
+
+apt-get update -y && apt-get upgrade -y
+
+apt-get install -y nginx
+
+Resources for this lecture
+2--> customscript.json
+{
+  "fileUris": ["https://raw.githubusercontent.com/alashro/sampleweb/master/install_web.sh"],
+  "commandToExecute": "./install_web.sh"
+}
+3--> upload the file in CLI 
+4--> az vm extension set --resource-group azuredemo --vm-name linuxvm --name customScript --publisher Microsoft.Azure.Extensions --settings customscript.json
+
+*********************************** Cloud init ***********************************
+#cloud init--> it is in yml format
+package_upgrade: true
+packages:
+	- nginx
+
+while creating the linux VM, go to advance tab in it there we have to paste the yml file, then create the vm, so it will install the package automatically while creating the VM
+****************************** powershell desired state extension *********************
+go to vm--> extensions--> choose powershell desired state--> upload the zip format of .ps1 file--> once succeeded we can see provision succeeded option in extension tab of vm blade
+****************************Azure serial console & Run command option ****************************
+1--> for running scripts in azure vm and VMSS--> provide text based console for vm and vmss
+2--> boot diagnostics must be enabled for the VM's
+3--> scripts can made to run even the rdp or ssh port not open
+4--> powershell script for windows and bash script for linux
+vm--> support+troubleshooting-->serial console--> cmd to enter into new prompt--> esc+tab--> enter credentials for the vm
+
+similarly run command option helps us in running scripts
+************************** azure backup ******************************************
+recovery service vault's location should be same as vm's location
+RSV have recovery points--> we can do file recovery, vm recovery, disk recovery
+retention policy are like daily retention point, weekly retention point, monthly retention point and yearly retention point.
+we can give back up now option also to take backup
+once backup done we can recover vm, file or disk from it.
+if we recover the file from backup, addition local disks creaated in file manager from there we have to copy the desired file and paste it in local system.once done unmount the filesystem
+files will be downloaded and password needs to be entered and powershell script run automatically by azure and we can see above steps in file manager.
+in vm recovery:
+we have option for both vm and disk recovery
+we can choose for recovery of vm to replace the existing one or we create new one from the restore point.
+if we recover disk , we need to choose the storage account[for staging it for sometime then the disk will be attached to the VM]to accomodate the disk. we can replace existing disk also
+App consistent--> it captures memory content and pending I/O operations at the time
+file-system consistent--> it captures all the files at the time
+crash-consistent--> this happens if the machine shuts down at the time of backup
+*******************************************SOFT DELETE IN RSV*******************************************
+If we delete a backupitem for a server, it will be stored in the RSV.
+so we cant able to remove RSV if we want. So sometimes its okay to go to properties--> security settings--> disable soft delete
+*********************VIRTUAL MACHINE SCALESET********************************************************
+to create and manage a group of identical virtual machines
+the vmss is setted behind the LB to distribute the traffic among the others(no public address for the vms in the backendpool)
+all resources--> create VMSS--> here we will mention scaling conditions, name, all cofigurations--> create
+apt-get update
+apt-get install -y stress
+stress --cpu 70
+************************** AVAILABILITY ZONES ********************************************************
+it has sla of 99.99%
+To mitigate the datacenters level failure[zone level]
+We can select the availability zones for a vm during its creation.
+We can select the availability zones for a vm scale set.
+************************** CREATING VM IMAGE *********************************************************
+once we create a image of vm we cant use the existing vm anymore, only we can create a new one out of the image.
+first we have to prepare the VM to take image out of it--> connect to VM --> c:\Windows\system32\sysprep[generalize,shutdown]--> once disconnected from the VM, go to azure powershell 
+and deallocate the vm [Stop-AzVM -ResourceGroupName azuredemo -Name demovm -Force]--> once stopped, click capture option to take image-->[search images in market place to view the created images] Now from created image we can create a new VM
+*************************** RESIZING AZURE VM **********************************************************
+We can resize it while the vm is online, but it will restart to reflect the change. To see the many available size options better stop vm then go for resizing
+VM--> size option--> Resize--> to make it happen
+Powershell command for it:
+$vm = Get-AzVM -ResourceGroupName azuredemo -VMName newvm
+$vm.HardwareProfile.VmSize="Standard_DS1_v2"
+Update-AzVM -VM $vm -ResourceGroupName azuredemo
+**************************************** NETWORKING ******************************************************************
+CIDR--> Classless inter-domain routing.
+In azure virtual network while creating we have to define a address space[10.0.0.0/16]
+while creating vnet we can create one subnet[10.0.0.0/24], later we can create many subnets as possible within it.
+we can edit the subnets mask value before defining the vm's in the subnet.
+we can have many address space in Vnet.
+****************************************** NSG ****************************************************************************
+ip with standard sku has availability zones
+Priority
+port
+protocol
+source and destination
+applied on either NIC or subnet level
+if the public ip created is of standard sku then the nic associated with it should have the nsg associated else RDP connection wont take place
+standard ip sku--> has availability zones option unlike basic ip sku.it uses static ip address.
+nsg used to restrict traffic here.
+in source of NSG we can select either service tag[azure resources] or ip address or ASG
+*--> in source means from any systems
+nsg at nic level or subnet level, inorder to remove nsg for vm, go to nic, there u can see option for nsg, here we can remove it
+******************************************** ASG ******************************************************************************
+ASG holds rules for multiple vms then it get assigned to NSG [ASG to reduce the complexity of attaching individual vm's to a NSG]
+simplyh create a ASG, in networking section of vm, attach it to ASG later go to destination VM--> go to networking section--> go to NSG rules select source as ASG to allow traffic
+******************************************** ARM --> Infrastructure as a code ***************************************************************************
+JSON[Java Script Object Notation]----> Azure Resource manager to deploy it.
+Different sections in it:
+Resources
+Variables
+Parameters
+Outputs
+[[[[ vm--> export template option in the blade defines the JSON code of it ]]]]
+Market place--> Template deployment--> create custom template.
+we can deploy template using the powershell also.
+************************************************ LOAD BALANCER **********************************************************************************************************
+Backend pool--> holds vm's, associate those VM's to load balancer.
+front end ip--> public ip address[ ip of LB exposed to users ].
+health probe--> to send request to port of vm in regular interval to determine its availability.
+load balancing rules--> rule like if the traffic hit on port 80 of LB then directing the traffic to port 80 of vm.
+Basic LB:
+single vm
+availability set(vms in same availability set)
+scale set
+
+Standard LB:[recommended one]--> for higher SLA(99.99%)
+multiple vm
+availability set(vms in different availability set)
+scale set
+
+Internal and External load balancer:
+users--> external LB(lb with public ip)--> web servers in subnet--> internal LB--> db servers in subnet
+Steps:
+1. create a public ip
+2. create a LB
+backend pool--> set vnet--> associate vmss or vm--> if vm then its location should be as same as lb locationa and its sku as well. all the IP configurations should be in same VNET
+if there are many vm in backend then it should exist in same availability set or else it should be in vmss to distribute the traffice. If not in both vmss and same Availability set we should go for standard SKU
+if vmss configure behind the LB, once done--> it should be upgraded by going to instances section of VMSS--> now we can see the vm's available in LB
+3. we have to add health probe in the LB[ set unhealthy threshold, interval, port , protocol, probe name ] 
+4. Add loadbalancing rule [set persistance option(optional)]
+
+Deleting the LB:
+1. delete load balancing rule
+2. delete health probe
+3. delete the backend pool and click on save
+4. if vmss used, upgrade it again 
+5. delete the LB
+
+
+NAT rule in LB:
+suppose the vms in backend doesnot have the public ip, still lb can connect it
+if we want to make RDP to the vm's, we can create rules using NAT rule in LB.
+**************************************************** VNET ************************************************
+VNET peering to allow commn between VM's using private ip address.
+Allow gateway trasit to flow commn through Vnet to onprem.vnet1<---->vnet2<--s2svpn-->onprem(with allow gateway transit option the vnet1 can contact onprem)
+There is a wizard in the portal to enable VNET peerings[ one from VNET1 to VNET2 and one from VNET2 to VNET1 ]
+VNET peering can be established for VNET's across regions and subscriptions.
+In azure portal--> Go to the VNET option--> choose peering--> now we have to give two names specifies from which to which and vice versa.
+***************************************************** POINT TO SITE VPN *********************************
+This allows the onprem to connect with azure vnet over internet using private ip address.
+Gatewat subnet--> in Azure VNET
+create a vnet gateway [ we will be billed hourly for this ]--> in Azure VNET gateway[takes around 45 mins to build it]
+in client side:
+install azure vpn client 
+user certificate with private key[ extracted from the root certificate provided by Certificate authority ]
+export public key to point to site connection--> Vnet gateway
+
+points[VM's with VPN client and user certificate along with private key]-->root certificate provided by CA-->export public key--> point to site connection-->Vnet gateway-->Vnet with address space and gateway subnet
+ROOT certificate provided by CA or can be self signed one created using powershell.
+Client certificate generated from root one should be on each client trying to take connection to Azure Vnet
+
+Point to site Lab:
+1. Create a gateway subnet[ go to vnet--> subnets--> create gateway subnet]
+2. Create vnet gateway resource
+3. Create certificates in client machine using powershell[ root and client certificate ], 
+4. Go to portal--> virtual network gateway --> point to site config in settings--> mention the address range for clients--> specify authentication types and tunnel type--> paste the root certificate--> save--> download the VPN client by clicking that option at top.
+4a. export the VPNclient to desktop of client machine
+5. Map the drive to client so that the vpn client available in client machine. extract it--> run it--> now in vpn settings option u can see the staging network available, connect it. 
+6. now u can take connection to staging vm from client vm using private ip
+
+****************************************************** SITE TO SITE VPN ******************************************************
+onprm to azure vnet
+
+On prem:
+vpn device-->routing device should present[either cisco router or software, windows server 2016 running remote and routing services]
+vpn device holds public ip of virtual network gateway and address space of the staging Vnet.
+
+Vnet:
+gateway subnet
+local gateway--> to understand the ip of onprem to azure connection
+Vnet gateway--> configured with local gateway
+
+LAB:
+create azure vnet--> geteway subnet--> vnet gateway--> local gateway holding address of routing server and its address space[on prem address space]--> create and configure role in client server for remote and routing services--> create connection[sitetosite] in network gateway,then select options site to site and local network gateway, enter key also--> once done add network interface card with public ip of gateway and address space of vnet inside the client vm's route created already--> connect--> now client can access iis of staging vm using site to site vpn
+
+********************************************************** NETWORK WATCHER ********************************************************
+IP flow verify--> to check whether packet has been allowed or denied access to or from VM
+to check packet loss happen beocz of NSG rules 
+
+Next hop--> to check the vm's routing problem, to check if traffic is being sent to the right destination based on rule associated with the NIC
+
+connection troubleshoot--> diagnose connectivity[give insight on issue]
+to check connectivity between VM's or between vm to FQDN or URI or IPV4
+
+
+VPN troubleshoot--> to check connectivity between on prem resources and other Virtual networks in azure
+
+Packet capture tool-->to capture the traffic
+
+NSG logging-->  in json format, logs all ingress and egress ip traffic through it
+
+Traffic analysis--> provide visibility into the user and application activity
+
+
+User defined route:
+Applied at subnet level
+Routing service needs to be installed as a role inside the appliance server(subnetB-vm3)
+subnetA(VM2) subnetB(VM3) subnetC(VM1)
+we have to create route table resource in azure --> then create rule including VNET address space and destination where requests reaches(next hop)[subnetB]
+associate the route created to subnetA(option will be there to add subnet in the blade of created route table)
+go to demovm3 then networking-->nic-->Ip-->enable ip forwarding{ now the vm3 in subnet B understands to route the traffic from vm 2 to vm 1}
+SubnetA(VM2)-->SubnetB(VM3)-->SubnetC(VM1)
+We have to add a routing role in vm3 associated in subnetB, and configure it for routing.
+vm2 request to access the vm1 web page happens through vm3(appliance)
+
+
+*********************************** AZURE DNS *****************************************************************************************************
+In Azure we can't buy the domain name, we have to buy it from 3rd party
+In DNS concept--> zone is created first for the domain, then it contains record which map the Domain name to public ip of a webserver hosting web app.
+the domain name bought from godaddy.com--> once we create a domain in DNS, we get name servers where the domain is hosted. We have to those name server to the domain in Godaddy website, so
+that when request comes to web app, it first goes to godaddy then name servers then Azure DNS then web app in web server
+
+request to access web app--> godaddy--> nameservers--> Azure DNS--> Web server hosting the web app
+
+###############PUBLIC DNS######################
+LAB:
+1. create a dns zone in azure portal--> enter the name of domain we bought in the godaddy--> once created we can see NS and SOA records and Four name servers
+in the overview page of the DNS zone created
+2. Create a record set to map domain name to expected server
+3. A is the host record (if we want to map name to ip address)
+	Give name, type A, TTL 1 min, ip address of vm--> save
+4. register the name servers in the domain provider, save
+5. now the requests will use the domain name in the Azure DNS
+###############PRIVATE DNS####################
+LAB:
+It is used when we dont want the vms in internet to access the vms in azure. This is meant for only vms in azure using private ip.
+Here we apply the zone to Vnet--> then we can enable the auto registration so that vm spinned up in the vnet in future will get the domain name automatically.
+Since it is a private dns zone, no need to buy the domain from 3rd party vendor.
+azure portal--> create private dns zone--> select RG, give name for it--> Review + create
+once done--> view it, only SOA record available in it--> so go to add virtual network link option in the resource blade to associate the dns to vnet, 
+here enable auto registration
+now create a vm in the vnet, it will automatically added to the dns records.
+create a rule in networking section of vm1 so that vm2 can ping it using the domain name.
+also enable the file and printer sharing in inbound rules in windows firewall with advanced security inside the vm1.
+
+Points:
+if we delete the vm the records in the dns will also be deleted. only one link can be created between private dns and a vnet
+
+2. // Using PowerShell to work with private DNS Zones
+
+// Create your Private DNS Zone
+
+$myzone = New-AzPrivateDnsZone -Name cloud-internal.com -ResourceGroupName azuredemo
+
+// Get a handle to your virtual network
+
+$vnet=Get-AzVirtualNetwork -Name privatenetwork -ResourceGroupName azuredemo
+
+// Create a virtual network link
+
+$mylink = New-AzPrivateDnsVirtualNetworkLink -ZoneName cloud-internal.com -ResourceGroupName azuredemo -Name networklink -VirtualNetworkId $vnet.id -EnableRegistration
+
+
+
+// Using Azure command line interface to work with private DNS Zones
+
+// Create your Private DNS Zone
+
+az network private-dns zone create -g azuredemo -n cloud-internal.com
+
+// Create a virtual network link
+
+az network private-dns link vnet create -g azuredemo -n networklink -z cloud-internal.com -v privatenetwork -e true
+
+SCENARIO:
+Privatevm1 and Privatevm2 in vnet1,,,,Privatevm3 in vnet2
+vnet2 is linked with private dns without enabling auto registration, so in this case no records for privatevm3 created in private dns
+but the privatevm3 can make connection with privatevm1 and privatevm2 once the NSG rule for icmp updated in those.
+but the privatevm1 and privatevm2 could not take connection to private vm3 as it doesnot have record in private DNS, to solve this
+add record for the privatevm3 in the private dns zone
+
+################### DELETING THE PRIVATE DNS ZONE ###############
+1. delete the records other than SOA
+2. delete the Virtual network links
+3. delete the Private DNS zone
+#####################Creating own azure DNS####################
+nevvm
+windowsvm--> gonna act as dns--> get inside the vm--> add role--> install dns--> then add the domain in the zone--> add records in forward zone
+go to windowsvm in azure portal--> copy its private ip--> go to its Vnet--> go to dns server option--> change the dns server to custom--> give the private ip of windowsvm
+after adding the records, the newvm can access the windowsvm
+
+**************************************************************** STORAGE ACCOUNT *****************************************************************************************
+SERVICES IN STORAGE ACCOUNT:
+BLOB[reliabel, scalable], TABLE, FILE[use smb protocol], QUEUE
+
+TYPES OF STORAGE ACCOUNTS:
+general purpose version 2
+general purpose version 1
+block blob storage--> in need of premium performance of block and append blobs
+file storage--> in need of premium performance for file only storage
+blob--> this is a legacy storage account. Use general purpose version 2 for this
+
+Types of blobs:
+Block blob--> store text and binary data
+append blob--> store logging data
+page blob--> store VHD files of vm's
+
+REPLICATION:
+1. LRS--> 3 copies in the same data center in the primary region
+2. ZRS--> replication in three availability zones in primay region, to stand datacenter failure.
+3. GRS--> 3 replications synchronously in primary region and one asynchronously in secondary region. Data in sec could not be accessed unless failure in primary region
+4. RGRS--> 3 replications synchronously in primary region and one asynchronously in secondary region[read only thoug the primary region is available].
+5. Geo Zone Redundant Storage--> copies in 3 availability zones and one asynchronously in sec region,data in sec could not be accessed unless failure in primary region
+6. Read Access Geo Zone Redundant Storage--> copies in 3 availability zones and one asynchronously in sec region[read only thoug the primary region is available].
+
+Tiers:
+Hot--> at account level
+cool--> stored for atleast 30days, at account level
+archive--> stored for 180 days , at blob level only
+we have to rehydrate the blob before it can be accessed, once place in archive
+
+LAB:
+link to access blob:
+storageaccountname.blob.core.windows.net/containername/blobname
+We can create container with some access level(private no anonymous, anonymous read only for blob, anonymous read only for container and blob)
+else we can change the access level after its created by going into the container.
+
+LRS,ZRS,GRS,RA-GRS
+GRS- has both primary and secondary region(like LRS in primary and LRS in secondary), here the secondary is not accessible unless the primary is down.
+RA-GRS- has both primary and secondary region(like LRS in primary and LRS in secondary),here we can still read data in secondary region though the primary is up.
+
+
+Storage explorer:
+Storage account--> storage explorer option in preview state
+we can download it separately, then we have to install and add our account to it, so that we can manage our storage account easily.
+
+Storage account--> configurate option in the blade--> here we can change tiers to hot or cold
+but at file level(blob level) we can change its access tier to archive also[ once archived we cannot edit file directly again we have to edit its tier to hot or cool by rehydrating then we can edit it ]
+
+Access keys--> 2 will be there, so incase one get compromised by hacker, we can use 2nd one so that connection made with 1st one will be disconnected.
+we can use access keys in storage explorer to take connection to particular storage account.
+
+Shared access signature:
+can be made at blob and account level.
+go to blob(file)-->generate SAS-->permissions(read,write,create,delete),duration(start and end),allowed ip adresses,allowed protocols,use key1 to sign the sas. now we can access the blob(file) with sas for some duration
+at account level: we can specify which service in the account can be accessed with the sas, becoz in case of Access key using that we can access all the services inside the account. so the sas at account level is more secure
+permissions at account level when using sas: list, add, update, process, read, write, create, delete.
+
+Azure file storage:
+while creating it as a service inside storage account we can set its quota. it can be mounted in the local system as a drive also, accessed using the smb protocol.
+
+Snapshot and azure recovery backup for fileshare:
+1. go to fileshare and take snap of it-> snap holds all the files in the share.
+2. create backup and recovery resource--> select backup of file share--> register the storage account then file share then set policy for it.once backup done we can recover the file incase of any need.
+
+LAB TO DELETE RECOVERY SERVICE VAULT HOLD FILE SHARE:
+1. Go to backup item option in the recovery service vault blade
+2. stop the backup in backup item option
+2a. delete the backup, name of backup, optional reason, stop backup
+3. backup infrastructue option the RSV blade
+3a. select the storage account, unregister it, give the details and delete
+4. now delete the recovery service vault.
+
+LAB FOR SERVICE END POINT:
+Go to the Vnet--> create service end point--> add the service which u want to connect with the endpoint,select the subnets that can connect using the endpoint
+Firewall and vnets option in the storage account blade to limit the vm's that can take connection with it. Once the vnet endpoint created it will be available in the firewall and vnet option of storage account.
+
+AZURE FILE SYNC:
+Create a resource called azure file sync--> get inside--> create a sync group--> register the storage account and file share--> it will create a cloud end point
+go to the vm where u want to see the sync files--> install azure file sync--> create a folder in the c drive
+go to the syncgroup--> create a server endpoint--> now we can see the folder created in the c drive appears in sync group
+so if u add a new server endpoint in the sync group it will automatically have the shared folder in it.
+
+AZURE IMPORT/EXPORT:
+WAIMPORTEXPORT tool to copy data to disk drives in onprem datacenter.The drives need to be bitlocker encrypted
+create a import job in azure. Associate the job with storage account. upload the journal files to the job, which is created by the WAimportexport tool
+mention the return address
+ship the drives to azure data center.
+
+AZ COPY TOOL:
+Command line tool.
+
+AZURE DATA BOX:
+microsoft provided appliance(to transfer large data)
+data box-100TB
+data box disk-8TB
+data box heavy-1PB
+
+AZURE DATA FACTORY:
+perform ETL and data integration projects
+datasets--> source of the data
+define activity
+activities performed the pipelines
+
+AZURE CDN:
+LAB--> Create resource CDN--> set the endpoint and resource u want to connect.
+once done--> we can see profile and endpoint.
+one cdn profile can have multiple endpoints(endpoints are for storage account, web service, cloud service,custom origin also)
+once done cdn profile, endpoint for specific storage account created.
+
+
+*********************************** AZURE SUBSCRIPTIONS AND PERMISSIONS *******************************************************************************************************
+Azure AD--> users, groups, service principle
+subscriptions--> access at subscription level
+resource group--> RBAC at this level
+
+ROLES AT SUBSCRIPTION LEVEL:
+CLASSIC ROLES:
+Account administrator- 1 per account
+ manage all the subs in an account
+ create new subs
+ cancel subs
+ change the billing for a subs
+ change the service administrator
+
+Service administrator- 1 per subs
+ manage the services in azure portal
+ assign users to the co-administrator role
+
+Co-Administrator-200 per subs
+ same access privileges as the service admin, but cant change the association of subs to azure directories
+ assign users to co-admin but can't change the service admin
+
+AD roles:
+Global admin, user admin, billing admin
+
+We can create multiple directories at the Azure AD
+
+MONITORING THE AZURE RESOURCES:
+by using resource metric and activity log.
+activity log at contol pane level
+we can trigger alert depends on resource metric and activity log
+we can create action group(send sms,email, call a webhook, call an azure function in case of triggered alert)
+
+Azure Monitor--> blade have metrics,activity logs,alerts options
+while creating alert, we have to create a action group inside it, then associate it with the rule. Action group is associated with the resource group level while it is in creation
+
+CUSTOM DOMAINS:
+user creation at ad level--> username@tenantname.onmicrosoft.com[@agur.com]
+azure AD--> Custom domain in the blade-->here we can see default domain(tenant)name, we can create new custom domain also
+Create custom domain--> verify it(before that add the txt detail to the domain provider)--> now verify it
+now we can add user with the custom domain.
+
+Log analytics:
+create a resource--> go to the resource--> go to vm option(select the vm,so that the agent get installed on the vm)-->go to advance setting option in the log analytics blade(select the onprem server if u wish, select the data u want to log-->once done, go to the log option of the blade , where u can create a query to retreive the collected logs)
+a vm can connect to one log analytics only
+log analytics location can be different from the resources it holds to collect logs
+
+Azure backup report:
+for this log analytics is must
+go to recovery service vault-->diagnostics settings option in the RSV--> enable the loganalytics(select logs for backup report)-->done
+once done---> in Recovery service vault blade--> go to backup report--> now we can see the backup report clearly
+
+
+Network performance monitor:
+its a solution on the top of log analytics, go to log analytics blade--> go to workspacesummary--> add the network performance monitor--> now configure it
+configuration:
+using the powershell script we have to download the agent on the vm we want it to be here
+now configure performance connectivity and service connectivity
+performance connectivity--> to monitor why the connection lost between vm in different vnet
+service connectivity--> to monitor the loss of connectivity between resources
+in overview page of workspace summary we can see the network performance monitor results
+
+Application insight:
+create a application insight resource, go to the vm, go to the extension option in the vm blade, add the application insight
+go to application insight--> see the performance option
+
+Powershell command to the tenant id, in order to see the compatibility(so that resources can be moved across RG)
+(Get-AzureRmSubscription -SubscriptionName <source subs>.TenantId
+(Get-AzureRmSubscription -SubscriptionName <destination subs>.TenantId
+ad domain services,containers cannot be moved,
+vm with certificates stored in key vault can be moved to new RG in same subs
+vm configured with backup cannot be moved
+for moving vnet entire resources inside it needs to be moved
+vnet peering needs to be stopped to move it
+vnet with classic deployment cannot be moved
+vm with classic deployment must be moved with cloud service
+
+
+
+Policy:
+one policy at management level to deny creation of vnet
+one policy at subs level to allow creation of vnet
+still we cannot create a vnet due to precedence level where the policy denies the creation
+
+
+Tags:
+Cost management + billing--> cost analysis--> inside it we can see the filter conditions which have tags.
+invoices option will be under the cost management + billing blade
+Azure advisor--> its a resource give advice on cost,performance,availabilty,security of resources
+
+locks--> read only, delete lock(cannot delete)
+
+Azure AD licence--> if we buy this, we have to assign it to users then only we can use it.
+Azure AD-->licence blade--> here we have to assign it to a user
+
+Azure AD join--> we can join and register devices with azure ad join.
+for employees who bring their own devices.
+Enterprise State Roaming--> for premium tier, users have the ability to securely sync their user settings and app settings data to the cloud
+Azure AD-> devices-->device settings-->we can allow all users or particular one, MFA requirements[options]
+get into a vm-->settings--> account--> access work or school--> join the device to active directory
+now the device connected is registered in the devices setion of the Azure AD.
+
+Adding users & Groups:
+azure--> Azure AD--> users--> add users or guest users
+Azure--> Azure AD--> groups--> we can create group with 3 membership type
+1. assigned--> in this once we created group with a owner, we can add multiple users by the owner credential
+2. dynamic user--> in this users added to a group automatically with the query we choose, their will be a option to add a single user as well
+3. dynamic device--> in this we dont have option to add a user manually, it depends on query only. we can add dynamic device option as a membership type
+once we join the device to ad using ad join, we can set query to add it to group automatically.
+
+Password reset:
+Azure AD--> password reset(none, selected, all)--> depends on it user can reset their password
+these are done for users and end users in organization only, for admin they need to reset  by using the two authentication methods to reset password
+Methods available to reset the password:
+mobile app code
+email
+mobile phone
+office phone
+security questions
+
+MFA:
+azure AD--> security--> MFA--> log on as user and add user in it. so that next time user logs in he will be authenticated using MFA
+For MFA--> text msg,call,app notification, app code
+
+security--> MFA--> 1.users 2.service settings
+2.service settings:
+2a.for older apps
+2b.Trusted ips--> to skip mfa for users who are federated to azure using azure federation service
+also skip MFA for iprange available
+retention period to redo the mfa can be set to maximum of 60days
+
+Azure conditional policies:
+azure--> Azure ad--> security--> conditional access--> policy--> policy name--> assignment to users--> cloud apps or actions(choose the app u want this policy)-->
+[[[ conditions-(sign in risk-->high,medium,low,no risk), device-like windows android,macos,(locations),(client apps),(device status)
+Grant--> block or grant access(mfa,compliant,ad joined device,client app,require app protection policy)
+enable policy
+now the policy will work
+
+NAMED LOCATION IN THE AZURE CONDITIONAL POLICIES:
+azure ad--> security--> named location--> here we have to mention a ip or range of ip , now go to conditional access policy--> set the location , there u can see the
+exclude option there u have to select and save the location name u have created in the named loction blade. now if the user login to portal, he will access as his ip range is excluded
+with this named location in exclude list, no need to do MFA.as per our lab
+
+AZURE AD ACCESS REVIEWS:use identity governance resource--> first onboard the directory, then create access review
+it requires azure ad premium p2 license for:
+1.member and guest users who are assigned as reviewers
+2.members and guest users who perform self review
+3.group owners who perform an access review
+4.app owner who perform an access review
+
+ACCESS REVIEWS:
+azue ad--> create a group with two user
+service identity governance--> onboard the directory--> access review--> create one, once done, the owner of group will get mail to approve the access of the users to group, if he denies then the user will be deleted from the group.
+stop and start the identity governance to remove the denied user from group
+AZURE AD CONNECT:
+to sync users credential in on prem to azure ad
+two components for this service:
+azure ad connect sync component--> onprem environment
+azure ad connect sync service--> service runs in azure ad
+idfix tool to remediate problems of user details in onprem directory
+Password hash sync--> to sync credentials(hash of hash) from on prem to azure ad--> authentication happens at azure ad level
+pass through sync--> here authentication happens at onprem ad level
+password writback option enable in order to reflect the password that has been resetted in azure ad on to onprem
+only users credentials from onprem synced to azure ad using ad connect not vice versa
+
+the azure ad connect component on a server in on prem environment should be domain joined with the active directory of server in on prem.
+install the adconnect in the servers specified for it in onprem, then login to azure ad connect using azure global admin account and select domain against which the azure ad connect needs to be mapped
+
+**************************************************************** MARS AGENT *********************************************************************************************************
+MARS AGENT OR AZURE BACKUP AGENT OR AZURE RECOVERY SERVICES AGENT:
+go to azure vm--> Vault--> backup--> select type of backup u want--> download mars agent--> download key[this it to register the server with vault]--> 
+configure installation along with passphrase--> take backup via the agent installed in the az vm--> we can restore the vm using agent,
+similarly if configure another server with MARS agent that server can access the files restored for another VM.
+
+network performance monitor--> 8084 port
+Azure disaster recovery:
+vm--> Disaster recovery--> select target region and policy---> the disaster recovery policy can be set by going to RSV then disaster recovery option there.
+now go to vm blade--> test fail over--> so new vm created, once done--> delete the tested failover VM
+
+only time we can set availability set for azure vm is during its creation. update domain--> vm in it will undergo restart and update when there is a another vm in the domain is updated and running.(one at a time)
+avaiabilty set or availability zone or vmss
+
+Cooldown time in VMSS--> decide to trigger the scaling conditions how often.
+while creating the VMSS, enable the public ip for instances
+we have to upgrade the vmss instance to reflect the changes we made in it(like install iis)
+
+Stop-AzVM -Name demovm -ResourceGroupName demorg -Force
+
+Proximity placement group is a resource we have to create first the while creating vm we have to assign it to PPG shown in advance settings tab, this to reduce the communication latency between the vm's placed in a PPG
+
+Subscriptions--> select particular subscription--> usage+quotas--> here we can see the resources limits
+
+az vm encryption enable -g azuredemo --name keyvm --disk-encryption-keyvault demovault--> to enable the vm encryption
+before the above process create a key vault which have access to disk encryption. we can choose soft delete and retention period for those vm
+
+Azure app service plan & web app:
+az appservice plan create --name webappplan7000 --resource-group azuredemo --sku B1
+az webapp create --name webapp9000 --plan webappplan7000 --resource-group azuredemo
+
+######################################################################################################################################################################
+Container:
+it is a light weighted one, multiple container can run in a single vm.
+eg. 3 web apps in 3 containers attached to single vm, these containers can be moved from one vm to another
+incase of a need to made change to a webapp, u can modify the container which hosts the webapp, so that others wont get affected.
+Docker engine needs to be installed on the server to host those container within it.
+
+LAB for deploying docker on virtual machine:
+create a ubuntu vm--> install docker repository--> pull the container of nginx--> run it--> now with public ip address we can access the nginx of a container
+You can use the following commands to work with Docker on an Ubuntu Linux virtual machine
+
+OR
+
+You can also refer to Docker documentation - https://docs.docker.com/
+
+// Update the package index
+
+sudo apt-get update
+
+// Install packages to allow apt to use the repository over HTTPS
+
+sudo apt-get install \
+
+    apt-transport-https \
+
+    ca-certificates \
+
+    curl \
+
+    gnupg-agent \
+
+    software-properties-common
+
+// Add Docker's official GPG key
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+// Setup a stable repository
+
+sudo add-apt-repository \
+
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+
+   $(lsb_release -cs) \
+
+   stable"
+
+// Update the package index
+
+sudo apt-get update
+
+// Install docker, containerd
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+// Pull the nginx image
+
+sudo docker pull nginx:1.17.0
+
+// Create a container out of the image
+
+sudo docker run --name sampleapp -p 80:80 -d nginx:1.17.0
+
+#########################################################################################################################################################################
+
+we can use PaaS(container instance) to host app.
+
+Kubernetes--> container orchastration software
+install kubernetes software on a vm(master cluster)-->node(vm-kubernete software installed),node(vm-kubernete software installed)--> deploy container on it using kubectl tool
+it provides dns name for containers
+it load balance traffic between containers
+it can kill or replace containers
+it can restart the container that fails
+
+######################################### APPLICATION SECURITY GROUP ###############################
+its like a load balancer
+the backend can be vm,vmss,onprem server
+layer 7 load balancing
+ssl happens between client to application gateway, no ssl between application gateway and backend pool to avoid burden(so no high cpu utilization)
+it will autoscale like load balancer
+enable web application firewall feature for application gateway resource
+enable session affinity
+components:
+frontend ip address
+listener--> basic(listen to a single domain site) and multi site(maps to multiple domain site)
+routing rules--> basic and path based
+backend pools-->vm,vmss,ipaddress,nic,fqdn or app service
+health probes
+###############LAB:
+the application gateway should have a free subnet to use
+the routing rules have listeners.
+
+########################################################## GATEWAY TRANSIT #####################################################################
+spoke-->hub--->onprem
+hub<--site to site vpn-->onprem
+spoke needs to contact with onprem, so we have to enable peering between spoke and hub vnet
+go to peering option of hub and enable allow gateway transit in it
+go to peering option of spoke and enable remote gateway in it
+now spoke to onprem connection made via hub
+
+Azure virtual network gateway is highly available in nature, active and standby instance will  be created
+for planned maintenance switch over will take place in 10-15 secs
+for unplanned outage switch over will take 1-1.5 mins
+in case of two vpn device in client side we should have to local network gateway to define those
+and one vnet gateway, and one gateway subnet
+
+########################################################## Jump server & Bastion ####################################################################################
+
+jump server act a intermediate, so that vmA connect to jump server using public ip of jump server and then jump server connect to vmB using the private ip of vmB
+in jump server concept we have to create and maintain a separate vm to act as jump server
+in bastion, all the things maintened by Microsoft
+select vm u want to connect, choose bastion, then select the subnet created for bastion with name(AzureBastionSubnet),select create new ip for bastion, then connect to target vm with the credentials using bastion
+new tab will appear, where u can see the target server
+
+################################################################ AZURE FIREWALL ########################################################################################
+
+In vnet blade:
+1.Create a subnet specific for that--> AzureFirewallSubnet
+2.go to firewall option
+3.create it with new public ip
+
+create a route table resource--> associate it with prod vm, in rules option of the blade create a rule saying next hop is azure firewall
+now whenever a prodvm try to connect with internet it should go through the azure firewall.
+we can take connection to prodvm through azure firewall, for this go to created firewall and create rule for it(NAT RULE)
+NAT RULE, NETWORK RULE, APPLICATION RULE--> three types of rules in created firewall resource
+
+
+Azure WAN--> to avoid use gateway transit, with this complex network problem could be resolved
+WAN can have a peering, could have a gateway transit, etc.
+
+################################################################ LAB ###################################################################################################
+1.soft delete option for blob:
+go to portal-->storage account-->blob-->data protection option in the blob blade, here we can configure the soft delete options.
+
+2.particular ip address to access storage account:
+go to storage account-->firewalls and virtual networks option in the blade--> select Vnet or particular range of address to make it possible to conect with storage account.
+
+3.to access storage account with access  key with https.(it means we have to enable secure connection)
+go to storage account--> go to configuration option in the storage account blade--> enable the secure connection
+by using access key we can access the storage account.
+
+4. create storage account with file service(choose storage account v2), the access cost should be less(so go with hot tier).
+
+5. Logic App Contributor Role added to the group,this role allows you to manage Logic Apps and hence will allow the group to create Logic Apps as well.
+
+6. Logic App Operator Role--> allows u to read,enable or disable logic app. could not edit or update them.
+
+
+################################################################## DUMPS ################################################################################################
+
+When azure ad connect with password hash sync enabled, in this time if we enable the staging mode, then sync of credentials from on prem to azure ad will stop
+when staging mode is disabled then the sync will resume from the point where it stopped
+synchronisation service manager helps in force the sync even in the staging mode 
+
+way to access cdn endpoint with custom domain name:
+Create a CNAME DNS record.
+Associate the custom domain with your CDN endpoint.
+Verify the custom domain.
+
+To detect the network intrusion between the VM, use packet capture
+
+"Microsoft.Support/*"
+
+RSV should be in same region as vm for which backup is gonna be configured. VM agent should be installed in the azure vm to take backup
+No RSV for blob
+
+
+remote gateway or allow gateway transit should not be enabled for globally peered devices, all the vnet should be in same region to use this.
+
+Azure file sync steps:
+install file sync agent in the server
+register the server
+create a sync group in azure and cloud endpoint
+create server end point
+onboarding with azure file sync
+migrate dfs replication deployment to azure
+
+a vnet can be linked to one private dns zone only,registered vnet for private dns can be one, but resolving vnet for private dns can be upto 10.
+a vnet can be linked as resolution one to ten different private zones. Reverse dns for registered vnet will happend with private ip. for resolution vnet it will return internal.cloudapp.net but not resolvable.
+at the initial stage of registering or resolving vnet in private zone both should have no vm
+conditional forwarding is not supported for now(resolution between onprem and azure vnet)
+
+Active directory domain---> azure ad connect -----> azure active directory tenant
+inorder to connect ad domain to aad tenant from on prem, we need enterprise admin account
+at the same time we should have global admin account(not ms account) for the azure ad tenant.
+
+To recover files lost in azure vm and make it available to on prem machine:
+1.select file recovery from RSV
+2.select the restore point
+3.download the script
+4.go to the on prem machine where we need to mount the files and run the script
+5.use the file explorer and get the files from the mounted drive. mounted drive availble for 12hrs
+
+Azure vm site recovery is different than RSV, go to vm-->disaster recovery option--> select target region(will create new RG, new VNET)--> meanwhile go to RSV go to disaster recovery, here create a restore point--> go back to earlier step, select the RSV points,select staging storage account and give create
+now the site recovery is created--> this creates a entire data (in staging storage account)and not vm, test failover with recovery point objectives, this will create a new vm, finally clear failover to remove the vm
+
+Subscription blade--> cost analysis--> here we can see the cost of each resources for last week,month etc.
+
+NSG flow logs of network watcher helps in analysis of the connection between Vnet.
+
+Standard load balancer will provide 99.99% of vm availability
+
+To Make the rdp requests to LB to directly connect with particular vm, go to LB, and set NAT rule in it.
+
+connection monitor provide min, max and avg communication latency between vms over time, to view avg round trip of packets from vm1 to vm2.this is to analysis the reason for slowness between the vms
+
+Inspect network traffic between two vm for a period of time, use packet capture of network watcher
+data collector for collecting data of performance counter.
+
+metric chart is to see the number of packets coming in and out of vm.
+
+Get the role Get-AzRoleDefinitions, make all config, New-AzRoleDefinitions
+
+Azure privileged identity management(PIM)--> cannot assign below roles to user
+1.account admin
+2.service admin
+3.co-admin
+above are classic subsciption roles
+
+
+Microsoft.web/sites/providers/locks--> type is in the json, for locking websites in the vm
+
+Create a cname record in dns for cdn
+associate the domain with ur cdn endpoint
+verify the custom domain
+
+Move-AzResource  -DEstinationSubscriptionId---> to move the resource accross subscription.
+
+az vmss scale --resource-group " "  --name " " --new-capacity 4
+
+we can add additional NIC to a vm(depends on SKU of vm), before adding it, we have to make sure that vm is stopped.
+
+to diagnose the network intrusion use the packet capture, which will be stored in the storage account.10 packet session per region per subscription.(.cap format)
+
+Public ip of a vm will be visible once it is powered on, before that the name of vm will be visible in the public ip name option.
+
+port 80 for webservices, in nsg we configure this port only.
+
+In resource group, if we go to deployment option we can see the deployments at the same time we can see the template option which will list out the templates used to deploy the resources
+
+UPN(user principal name) mismatch between azure ad and on prem active directory.
+upn is used by azure ad to allow user to login as sso.
+incase of upn issue , one needs add and verify the name in azure ad, so that user can sign in with their domain name at the end(@contoso.com)
+
+one of way to acccess fileshare. net use z: \\samples.file.core.windows.net\logs /u:samples--> it is one of way to mount the fileshare in the local machine
+(use either powershell or net use z commands)
+
+a single NIC can have both public and private ip.
+
+we can associate multiple NIC to single NSG.
+
+{
+"field":"type"
+"equals":"microsoft.resources/subscriptions/resourcegroups"
+}
+
+Azure AD--> device settings-->add a members who will be the local admin for the computers joined to the azure ad
+
+GRS(99.99%[16 9's]--> sla)
+, standard LB, availability zone(99.99% sla)
+
+NO sla for vm in scaleset(as the scale set is free service)
+no scale set available for managed disk
+sla for managed disk depends on underlying storage acount and the vm it attaches to
+
+Traffic manager is used for traffic distributions based on DNS queries.
+
+https://autologon.microsoftazuread-sso.com added to intranet zone so that kerberos ticket will be sent to azure ad url for communication. so the user can login to the account
+by sso method
+
+availability set and managed disk provide sla of 99.95%
+
+global admin can only work on Azure ad health agent in azure ad
+
+No of availability sets depends on number of tiers used--> if we put both web and db tiers vm in same availabiltiy set in case of maintenance all vm will be rebooted(if one web vm goes down and one web vm goes up, the db vm may also goes down since its in same availability set)
+
+Desired State Configuration is used to deploy vm with preinstalled web server in it.(vm should be on to establish this)
+
+Vnet--> need to create subnet-->owner and network contributor
+
+Microsoft.authorization/*/read--> read authorization
+microsoft.resources/subscriptions/resourcegroups/read--> get or list resources
+microsoft.support/*--> create and manage support tickets
+
+setting up public loadbalancer:
+$publicIp = New-AzPublicIpAddress `
+ -ResourceGroupName $rgName `
+ -Name 'myPublicIP' `
+ -Location $location `
+ -AllocationMethod static `
+ -SKU Standard
+
+$feip = New-AzLoadBalancerFrontendIpConfig -Name 'myFrontEndPool' -PublicIpAddress $publicIp
+
+
+Local network gateway should have ip address of vpn device and it have address range of the onprem vnet address space
+
+GatewaySubnet is the name of the subnet needs to be created in order to use vnet gateway.all the vnet gateway resources will be deployed in this subnet.vnet gatewy will have dynamic public address
+
+peering can be established for all vnet.(global peering, vnet-vnet peering, local peering)
+
+Inorder for the peering to work config has to be made on both vnet
+
+activity log in azure monitor will gives info of created role assignment , deleted role assignment, created custom role, deleted custom role. It holds the record for 90 days
+
+Add-AzStorageAccountNetworkRule--> to add network rule for particular ip to access the storage account.
+
+premium ssd suppors iops of 20,000
+
+enable collection of guest os diagnostics, data helps in collecting the performance counters of the VM.
+
+
+
+$inboundNATRule1= New-AzLoadBalancerInboundNatRuleConfig -Name "RDP1" -FrontendIpConfiguration $frontendIP -Protocol TCP -FrontendPort 3441 -BackendPort 3389
+
+$inboundNATRule2= New-AzLoadBalancerInboundNatRuleConfig -Name "RDP2" -FrontendIpConfiguration $frontendIP -Protocol TCP -FrontendPort 3442 -BackendPort 3389
+
+$healthProbe = New-AzLoadBalancerProbeConfig -Name "HealthProbe" -RequestPath "HealthProbe.aspx" -Protocol http -Port 80 -IntervalInSeconds 15 -ProbeCount 2
+
+$lbrule = New-AzLoadBalancerRuleConfig -Name "HTTP" -FrontendIpConfiguration $frontendIP -BackendAddressPool $beAddressPool -Probe $healthProbe -Protocol Tcp -FrontendPort 80 -BackendPort 80
+
+
+In order to resize a vm, we should first see the available sku options for it
+az vm list-vm-resize-options to list resize options
+az vm resize to resize
+
+IN P2S connection, if a second computer wants to make connection with azure vnet, it should have the client certificate of first computer.so export the certificate in .pfx format from first computer to second computer.
+
+Import and export of dns files can be done only with azure cli.
+azure cli helps in deploying linux vm with preinstalled packages by using cloud-init.txt file
+
+In peering we can configure peering a to b and peering b to a in a single vnet. But the peering a to b is visible in vnet a only and peering b to a is visible in vnet b only
+
+port 445 for fileshare(for out bound connectivity of computer to azure file share).Once file share created in azure storage account, connect option is there it will give the powershell needs to entered in the computer in order to connect with azure file share using smb protocol
+
+Set the access policy in order to use the secrets from azure key vault
+1.enable access to vm for deployment
+2.enable access to azure resource manager for template deployment
+3.enable access to azure disk encryption for volume encryption
+
+move disk from vm1 to vm2 with minimum downtime:
+stop vm1
+detach the disk from vm1 and start the vm1
+attach the disk to vm2
+
+https://storageaccount.file.core.windows.net/filesharename/dir/file----> endpoint for fileshare
+
+cost analysis to view cost of resources for last 7 days, one month, one year etc
+
+idfix.exe to solve problems in onprem active directory
+
+DNS server listen on port 53.
+
+In Storage account--> firewalls and virtual networks(here we specify the address range that can access the storage account)-->New-AzStorageAccountNetworkRule
+set-AzStorageAccountNetworkRule to assign the specific address that can access storage account
+
+Under data protection option of bolb service in storage account, we can enable the soft delete to retain the blob for 14 days.
+
+Disk files are supported in general purpose version 2 and 1, but the version one becomes a legacy, so go with version2
+
+az group create --name ExampleGroup --location "Central US"---> deploying vm using the template
+az  group deployment create \
+  --name ExampleDeployment \
+  --resource-group ExampleGroup \
+  --template-file storage.json \
+  --parameters storageAccountType=Standard_GRS
+
+
+Network contributor role at loadbalancer level allow the user to add the backend pools.
+
+two vpn device and two local network gateway , for redundance purpose(here we should use one public ip for one vpn device to be represented in one local network gateway and one public ip for one vpn device to be represented in one local network gateway)
+
+two virtual network gateway required in case of redundancy.
+
+connection monitor for latency,connection problem and network topology changes between the vms
+
+export template section of resource group, where vm installed gives the info of the vm template.
+
+"publisher":"microsoftwindowsserver"
+"offer":"windowsserver"
+"sku":"2016-datacenter"
+
+99.99% sla--> goes for availability zones
+
+az storage account create -g whizlabrg -n whizlabstore -kind storagev2 -sku standard_grs--> create storage account of v2 with grs sku
+
+startofweek means--> sunday
+endofweek means--> saturday
+
+change the ip address of vpn device:
+remove the vpn connection
+modify the local network gateway with new ip address
+recreate the vpn connection
+
+internal loadbalancer and application gateway--> user connect to application that is distributed across vm, using p2s or s2s vpn.
+
+application insight is used to give telemetry data or deignostic level data about the web application.
+
+storage account contributor--> to manage storage account(least privilege).
+storage blob data contributor--> to read, write, delete containers and blobs.
+storage blob data owner--> provide full access to containers and blobs, including the posix access control.
+
+in order to move the vm to new subscription, first we have to get the resource using Get-AzResource.then use Move-AzResource.
+
+deploy vmss with custom image:
+1.create and customize a vm
+2.deprovision and generalise the vm
+3.create a custom image
+4.deploy vmss with custom image
+
+az storage container create \
+--acount-name storageaccountname \
+--account-key (key) \
+--name containername \
+--public-access blob
+
+a vm can be placed inside the availability set only during its creation in the wizard.
+
+only azure blob supports export feature, file share couldnt support.-->service used to define azure export job
+import supported by both blob and file share
+
+New-AzDiskConfig--> to add disk config
+New-AzDisk--> to add a disk with above config
+Get-AzVm--> to get the vm to which we are gonna add disk
+Add-AzVmDatadisk--> to attach the disk to the vm
+Update-Azvm--> to update the vm
+
+MFA:
+disabled-->user not enrolled.
+enabled-->user enrolled for mfa but not registered.
+enforced-->user enrolled and registered for mfa.
+
+search clause:
+search in (Event) "error"--> in log analytics workspace to retrieve all errors of table event.
+
+external collaboration setting--> here we can allow the user admin to invite the external user of any domain.
+mfa cannot be set for external accounts
+
+az network public-ip create
+az network lb create---> to create a loadbalancer
+
+format to enable the mfa for user whizlabuser1@whizlab.com,in bulk file format
+not CN=whizlabuser1,DC=whizlab,DC=com
+
+its not mandatory to set mobile number in order to make the mfa work
+msg,phone,auth token, app notification
+
+Activation duration in PIM determins how long the user can act as owner
+
+create a vnet with azure cli:
+az network vnet create \
+--name whizlabvnet1 \
+--rource-group whizlab-rg \
+--subnet-name default
+
+Powershell remoting done through port 5985 and 5986, so create the inbound rule in the vm to allow powershell remoting.
+
+log files in blob storage append blob
+
+once the storage account of standard created, we canot upgrade it to premium, hence we have to create a new storage account of v2 type and make it as premium and copy data from standard to this premium one
+
+only dynamic public ip can be assigned to the vpn gateway(public)
+
+azure always reserve 5 ip address of vnet(first 4 ip and last 1 ip of the address space)
+
+azure support 64 bit operating system only
+compute and storage cost for vm, even the vm stopped bill will be incurred for storage since it holds the VHD of vm in it.
+
+################################################## create vm using powershell #####################################################################################
+New-AzVm `
+    -ResourceGroupName "TestResourceGroup" `
+    -Name "test-wp1-eus-vm" `
+    -Location "East US" `
+    -VirtualNetworkName "test-wp1-eus-network" `
+    -SubnetName "default" `
+    -SecurityGroupName "test-wp1-eus-nsg" `
+    -PublicIpAddressName "test-wp1-eus-pubip" `
+    -OpenPorts 80,3389
+ 
+###################################################### azure cli to create vm ########################################################################
+az vm create \
+    --resource-group TestResourceGroup \
+    --name test-wp1-eus-vm \
+    --image win2016datacenter \
+    --admin-username jonc \
+    --admin-password aReallyGoodPasswordHere
+    --verbose --> to see the progress of vm creation
+###################################################################### azure api uses #####################################################################
+its for complex scenarios
+Create and manage availability sets
+Add and manage virtual machine extensions
+Create and manage managed disks, snapshots, and images
+Access the platform images available in Azure
+Retrieve usage information of your resources
+Create and manage virtual machines
+Create and manage virtual machine scale sets
+
+#######################################################################################################################################################
+ 
+Fault domains are defined for managed disk attached to vm
+
+in azure os disk can be of size max 2tb
+temporary disk is the sdb which is to store the swap files(mounted on mnt)--> on reboot data inside it will be cleared
+1gib(gibibyte)=1.074gb(gigabyte) in azure
+
+dmesg command to give kernel info in linux vm
+for each disk added to linux vm we have to initialize it
+smtp on port 25
+.rdp file error,RDPSIGN.EXE sign the .rdp file
+
+--no-wait command in cli
+az vm image list --publisher Microsoft --output table --all
+az vm image list --location eastus --output table
+az vm image list --sku (or)offer Wordpress --output table --all
+az vm list-sizes --location eastus --output table
+before resizing the vm, look for available resize options available for the vm.
+
+az vm list-vm-resize-options \
+--resource-group [] \
+--name
+
+az vm resize \
+    --resource-group [sandbox resource group name] \
+    --name SampleVM \
+    --size Standard_D2s_v3
+
+az vm --list--> list out all vm in the subscription
+
+az vm list-ip-addresses --name samplevm --output table
+
+az vm show -g rgname -n vmname--> show details of a particular vm
+
+--query in cli commandlet to get specific info from vm
+ex:
+az vm show \
+    --resource-group [sandbox resource group name] \
+    --name SampleVM \
+    --query "osProfile.adminUsername"
+
+##################################################### JSON #############################################################################################
+{
+  "people": [
+    {
+      "name": "Fred",
+      "age": 28
+    },
+    {
+      "name": "Barney",
+      "age": 25
+    },
+    {
+      "name": "Wilma",
+      "age": 27
+    }
+  ]
+}
+
+query:
+people
+people[1]
+[?age > '25']
+name
+
+###########################################################################################################################################################
+az vm stop --g "" --name "" [or]
+az vm get-instance-view \
+    --name SampleVM \
+    --resource-group [sandbox resource group name] \
+    --query "instanceView.statuses[?starts_with(code, 'PowerState/')].displayStatus" -o tsv
+
+az vm start
+az vm restart
+--no-wait to return to cli without waiting for the vm to reboot
+--generate-ssh-keys--> to create key pair for linux machine
+#################################################### nginx installation ##############################################################################
+az vm list-ip-addresses --name SampleVM --output table
+ssh azureuser@<PublicIPAddress>
+sudo apt-get -y update && sudo apt-get -y install nginx
+exit
+curl -m 10 <PublicIPAddress>
+az vm open-port \
+    --port 80 \
+    --resource-group [sandbox resource group name] \
+    --name SampleVM
+curl -m 10 <PublicIPAddress>--> return the data
+
+azure cloud shell is browser based one, inside it we can either use cli or powershell based scripts
+
+
+#######################################################################################################################################################
+update management:
+we can run the update without logging in system,no password required to update,no additional agents need to be installed.
+go to vm-->in the vm blade in settings u can see the update management option--> accept default setting and enable it, once done u can see the overview page of update management where details like missing updates(kb available in the link), failed update management present
+all resources--> type automation account-->select hybrid worker groups option inside the automation account blade.the vm created is listed there
+Components used by update management:
+Microsoft Monitoring Agent (MMA) for Windows or Linux.
+PowerShell Desired State Configuration (DSC) for Linux.
+Automation Hybrid Runbook Worker.
+Microsoft Update or Windows Server Update Services (WSUS) for Windows computers.
+
+################################################## VNET CREATION ######################################################################################
+$Subnet= New-AzVirtualNetworkSubnetConfig -Name default -AddressPrefix 10.0.0.0/24
+ New-AzVirtualNetwork -Name myVnet -ResourceGroupName vm-networks -Location $Location -AddressPrefix 10.0.0.0/16 -Subnet $Subnet
+
+New-AzVm `
+ -ResourceGroupName "vm-networks" `
+ -Name "dataProcStage1" `
+ -VirtualNetworkName "myVnet" `
+ -SubnetName "default" `
+ -image "Win2016Datacenter" `
+ -Size "Standard_DS2_v2"
+
+Get-AzPublicIpAddress -Name dataProcStage1--> to get the public ip of the vm
+
+disassociate the public ip from vm:
+$nic = Get-AzNetworkInterface -Name dataProcStage2 -ResourceGroup vm-networks
+$nic.IpConfigurations.publicipaddress.id = $null
+Set-AzNetworkInterface -NetworkInterface $nic
+
+when creating vpn gateway in powershell, specify gateway type(vpn),vpn type(route based),gatewaysku
+in express route-->private peering,public peering,microsoft peering available.
+
+Azure resource manager template is a declarative automation one--> here we define what we need, we dont know how to do it.the way how to do it is resource manager's work.
+json is a key-value pair(the key is a string, the value may be string,number,boolean,objetcs(key-value pair))
+
+You define what resources you need but not how to create them.
+#################################################### json #########################################################################################
+"parameters": {
+  "adminUsername": {
+    "type": "string",
+    "metadata": {
+      "description": "Username for the Virtual Machine."
+    }
+  },
+  "adminPassword": {
+    "type": "securestring",
+    "metadata": {
+      "description": "Password for the Virtual Machine."
+    }
+  }
+}
+
+#####################################################################################################################################################
+os disk-->registered as sata drive--> 2048 gb
+temp disk--> to store swap/page files
+data disk--> registered as scsi drive 4096gb(max)
+general purpose standard-->tables,blob,storage,queue,files(have page,append,block blob)
+general purpose premium-->blob(for page blob only)
+blob storage-->blob(append and block blob)
+
+VHD cannot be deleted from storage account while its attached to the vm
+az configure --defaults location=eastus
+az configure --defaults group="[sandbox Resource Group]"
+
+az vm deallocate \
+  --resource-group <resource-group-name> \
+  --name <vm-name>
+
+az disk update \
+  --resource-group <resource-group-name> \
+  --name <disk-name> \
+  --size-gb 200
+
+az vm start \
+  --resource-group <resource-group-name> \
+  --name <vm-name>
+
+IOPS x I/O size = throughput
+disk caching not available for L and B series VM
+
+entire process to change the caching option of os and data disk:
+$myVM = Get-AzVM -ResourceGroupName $myRgName -VMName $myVmName---> get the properties of vm
+$myVM | select-object -property ResourceGroupName, Name, Type, Location-->(type-microsoft.compute/virtual machines)
+$myVM.StorageProfile.OsDisk.Caching--> output readonly
+$myVM.StorageProfile.OsDisk.Caching = "ReadWrite"(changing the cache of os disk)
+Update-AzVM -ResourceGroupName $myRGName -VM $myVM(update the az vm)
+
+$myVM = Get-AzVM -ResourceGroupName $myRgName -VMName $myVmName-->the cache settings changed)
+$myVM.StorageProfile.OsDisk.Caching--> now readwrite
+$myVM.StorageProfile.DataDisks--> list the available datadisks in the vm
+Add-AzVMDataDisk -VM $myVM -Name $newDiskName  -LUN 1  -DiskSizeinGB 1 -CreateOption Empty--> attach new data disk to a vm
+Update-AzVM -ResourceGroupName $myRGName -VM $myVM--> update the vm with disk
+Set-AzVMDataDisk -VM $myVM -Lun "1" -Caching ReadWrite--> changing the caching of datadisk
+Update-AzVM -ResourceGroupName $myRGName -VM $myVM--> update the vm 
+for write only and write heavy operations choose the cache option as none(log files are the example)
+
+Encryption--> symmetric and asymmetric(public,private key)
+asymmetric key is slower than symmetric one, asymmetric key cannot be used for the large amount of data.
+Azure disk encryption does not support for basic tier of vm(l and b series of vm),on premise key management service cannot be used for azure disk encryption.
+
+Azure Disk Encryption requires that your key vault and your VMs are in the same Azure region; this ensures that encryption secrets do not cross regional boundaries.
+Before you can encrypt your VM disks, you need to:
+Create a key vault.
+Set the key vault access policy to support disk encryption.
+Use the key vault to store the encryption keys for ADE.
+
+New-AzKeyVault -Location <location> `
+    -ResourceGroupName <resource-group> `
+    -VaultName "myKeyVault" `
+    -EnabledForDiskEncryption
+CLI:
+az keyvault create \
+    --name "myKeyVault" \
+    --resource-group <resource-group> \
+    --location <location> \
+    --enabled-for-disk-encryption True
+                 
+
+Set-AzKeyVaultAccessPolicy -VaultName <keyvault-name> -ResourceGroupName <resource-group> -EnabledForDiskEncryption
+az keyvault update --name <keyvault-name> --resource-group <resource-group> --enabled-for-disk-encryption "true"
+
+Set-AzVmDiskEncryptionExtension `--> encryption for vm
+	-ResourceGroupName <resource-group> `
+    -VMName <vm-name> `
+    -VolumeType [All | OS | Data]
+	-DiskEncryptionKeyVaultId <keyVault.ResourceId> `
+	-DiskEncryptionKeyVaultUrl <keyVault.VaultUri> `
+     -SkipVmBackup        
+
+az vm encryption enable \
+    --resource-group <resource-group> \
+    --name <vm-name> \
+    --disk-encryption-keyvault <keyvault-name> \
+    --volume-type [all | os | data] \       
+
+Get-AzVmDiskEncryptionStatus  -ResourceGroupName <resource-group> -VMName <vm-name>
+az vm encryption show --resource-group <resource-group> --name <vm-name>
+Disable-AzVMDiskEncryption -ResourceGroupName <resource-group> -VMName <vm-name>
+az vm encryption disable --resource-group <resource-group> --name <vm-name>
+
+vm disk encryption can be carried out only using powershell or cli, above are the steps.
+
+
+DSC script(.mof file)
+local configuration manager (LCM)             
+You configure the LCM when you register a VM with Azure Automation.
+two modes in DSC:
+push mode--> the lcm configured in the vm push the updates(admin send the push)
+pull mode--> the lcm polls on pull server every 15 mins and poll server sends the added features to the nodes
+
+
+To get full set of metrics for vm, install two tool-->azure diagnostic extension and log analytics
+default metrics of vm:cpu usage,os disk usage,network traffic,boot diagnostic success.
+tha above tools need a storage account.
+with the tools--> we can do following:
+1.autoscale vmscaleset
+2.automate os update
+3.track vm config changes over time
+4.investigate boot issue
+5.get app level metrics by app insight
+6.archive logs and metrics for future analysis
+
+once vm created--> in the vm blade under monitoring option we can see the metric option and inside the metric we can see the default metrics
+under vm blade-->support+troubleshooting-->boot diagnostics option to see the the diagnostics(screenshot and serial log available there)    
+normally for vm created,in the overview page there are metrics(cpu average,network,disk bytes,disk iops).no need to create metric for those
+storage account needed for the boot diagnostics data
+enabling guest os diagnostic(adding dignostic extension) while creating vm else go to created vm, go to dignostic settings option in the blade then, pick on storage account then enable guest level monitoring.(by cli az vm boot-diagnostics enable, by powershell set-AzVmbootdiagnostics)
+configure extension:
+windows-->PU, Memory, Disk, Network, ASP.NET, SQL Server (60-second sample)
+Logs: Application, Security, System, Event tracing
+Crash dumps
+Sink data: Azure Monitor, Application Insights
+linux servers:
+Metrics: Processor, Memory, Network, Filesystem, Disk (15-second sample)
+Syslog
+NA
+NA
+
+configure the diagnostic extension:
+go to vm-->diagnostic extension option in monitor section of vm blade-->add the metric we want
+in metrics, we can add the extra metrics we want, we can add ddos attact alert also(no need for gues os extension),we can create alert rule for it also.
+in case cpu >85 for more than 15 mins, we can make alert with action group of scale out vm.
+
+
+we can move the web app from one app service plan to another,as long as source and destination app service plan remain in same RG and same region
+even if we move webapp from one RG to another, the app service plan cannot be moved    
+
+Azure storage explorer to move data from on-prem machine to azure storage account.     
+
+If azure vm doesnt have proper waappagent.exe, then its backup can fail.
+
+xml,json,yaml are used for semi-sructured data
+
+A transaction is a logical group of database operations that execute together
+OLTP(online transaction processing) is used for product catalog-->handles small or simple transactions
+
+SQL Data Warehouse supports OLAP solutions and SQL queries.but doesnt support cross database queries
+Azure Analysis Services support only tabular data not multi dimensional data
+Azure Stream Analytics is a great way to analyze data and transform it into actionable insights, but its focus is on real-time data that is streaming in
+Azure cosmos db index all the properties
+
+Storage account created at the beginning of a project
+the name of storage account should be globally unique(becoz its a part of url)
+block blob--> video content
+data lake to hold structured and unstructured data
+in storage explorer to connect to cosmos db using connection string
+to connect to data lake storage version1 use URI.
+
+connection string for cosmos db[AccountEndpoint=https://<YOUR-COSMOS-DB-NAME>.documents.azure.com:443/;AccountKey=<PRIMARY-MASTER-KEY>;]
+export NAME=cosmos$RANDOM
+az cosmosdb create \
+    --name $NAME \
+    --kind GlobalDocumentDB \
+    --resource-group [sandbox resource group name]
+az cosmosdb keys list\
+--type keys
+--name ""
+--resourcegroup ""
+
+data lake gen2 creation:
+az extension add --name storage-preview
+az storage account create \
+    --name dlstoragetest$RANDOM \
+    --resource-group [Sandbox resource group] \
+    --location westus2 \
+    --sku Standard_LRS \
+    --kind StorageV2 \
+
+manual failover for storage account is not possible but for few regions ms included that option(central us and west us)
+az storage account failover --name "storageaccountname"(use this cli command to do failover in above mentioned regions)
+
+
+vm-->public & private(both static and dynamic)
+LB(front end ip config)-->public & private(both static and dynamic)
+vmss-->public(static & dynamic)no private
+vnet gateway-->public(dynamic)
+application gateway-->(public-->only dynamic),private(both static and dynamic)
+
+
+Availability zones available for these:
+1.vm
+2.standard ip address
+3.standard loadbalancer
+4.sql database
+5.zone redundant storage
+6.managed disks
+7.vmss
+8.virtual private network gateway
+9.express route
+10.application gateway
+
+Loadbalancer-->external(it is a internet facing one)
+front end ip config--> we can attach ip to LB front end to load balance https,http request, or we can attach ip for forwarding rdp request to backend vm, 
+or we can use public address so that vm's private address inside vnet is translated to public ip
+
+vnet peering can be made across same subs, or same subs and same tenant or diff subs and diff tenant.
+
+in site to site vpn, there should be vpn device with public ip on the on-prem side, but it should not behind the NAT
+in vnet to vnet peering ,both vnet should have the gateway installed in it
+
+Serverless services--> azure functions,logic apps
+autoscaling option for vmss,availability set
+
+in storage service encryption option-->the newly added contents on disk will be encrypted, the data on the vhd while vm created wont be encrypted, hence we go for disk
+encryption concept to encrypt both os and data disk.
+
+azure managed disk follows LRS.
+
+vm in same availability set should be in same vnet.
+
+while creating availability set we have to enable the managed disk option, so that vm with managed disk can take part in the availability set
+
+no public ip for vm in vmss
+
+while creating vmss we can enable auto scale or we can enable it after it is deployed, vmss scaling conditions can be either metric based or schedule based
+instance count(min,max,default)--> to put some boundary for vmss, notify option in scaling tab is available in order to trigger mail to admin or trigger webhook
+While vmss is in creation, Load balancer is created for to have public ip for vmss
+in LB the nat rules are there that shows the port number through which we will connect to the specific vm, using LB public ip
+
+azure backup agent for windows only(files,folders,system state),recovery service vault, 3 times a day
+system center data protection manager for files,folders,volumes,vms,apps,workloads-->use RSV,tape,local disk--> 2 backups per day for RSV, every 15 mins for sql server, every one hour for other workloads
+azure backup server--> same as DPM(cloud version of DPM), only for RSV and local disk, same as system center DPM
+azure iaas vm backup--> vms,all disks windows and linux--> RSV--> one backup per day
+azure backup will be happen for the os and data disk not for temporary disk
+progress of backup--> first take snap shots of all the disks(os and data) then move it to the RSV
+
+Managed service identity-->service principle(go to vm--> go to vm blade and select the configuration option and enable the managed service identity(register it with ad),then we can see the extension available.
+go to storage account access control and create a role for the servic identity.
+
+Cloud service is a platform as a service, which is more flexible than app service. in cloud service we can deploy own software for the vm configured with cloud service.
+servicedefinition.csdef,serviceconfiguration.cscfg,servicepackage.cspkg
+
+service fabric with micro services--> each micro service can have database, it can be individually scalable,each micro service can be written in different programming language.
+
+shared compute(free and shared)-->basic one(apps share underlying resource)
+dedicated compute(basic,premium,premiumv2)-->runs app on dedicated azure vms.only apps in the same app service plan share the same compute resources
+isolated-->dedicated azure vms on dedicated azure vnet, which provides network isolation on top of compute islation(for app service environment)
+consumption--> this is for function apps only, it scales depends on workload
+
+while creating the resource web app, we can choose the app service plan it should reside, we can enable the application insight for it.
+
+mssync table in mobile app for offline sync feature.
+for mobile app we create resource mobile app and app service plan, on mobile app created, we can connect it to db using the connection option and we can use easy tables option as well
+we can download the android app and open it in visual studio, any changes made to the app will be reflected in the easy tables of the mobile app in azure portal
+
+azure notification hub and azure mobile engagement(this provides details of what user is viewing and what products he like then it will send the availability of product
+to users using notification hub)
+mobile backend gets the platform notification service(pns) handle and registered with notification hub through mobile app service or any other
+
+https://bit.ly/infyslack
+
+requests-->api management(with frontend ip)-->api app which holds api.
+
+azureapimanagementname.azure-api.net url
+RITM9525957
+
+inorder to create a custom role in azure, a user should have owner and user access administrator role
+if a role inherited from subscription to a resources, we cannot delete the assigned role at resource level,we have to delete it at subscription level
+
+connect-AzAccount
+Get-AzRoleDefinition -name "Storage Account Contributor" | ConverTo-Json | out-file c:\user\ash\file.json
+Get-AzSubscription
+New-AzRoleDefinition -InputFile c:\user\ash\file.json
+
+admins always have self service password reset and mfa, so no need to configure it for them
+
+azure policy is of json format:(it can be applied at management group level or subscription level or resource group level,,,,it cannot be applied at individual user level
+six effects in a policy definitions:
+append(like add tag on creating resources)
+audit(deploy resource in this region)
+aditifnotexist
+Deny
+deployifnotexist(if a extension not in vm, deploy it)
+disabled
+while doing initiative assignment there is an option for managed identity that is used in case of effect such as deployifnotexist
+azure security centre(standard tier)--> have just in time access and adaptive application control options
+go to security center--> in coverage option u can see the tiers available, u can apply the tiers applied to subs to the individual resource
+
+Audit logs to store the activities of azure active directory
+activity logs is for storing the activities on resources
+instrument package helps in application insight. this instrument package is installed in the resources
+
+log analytics(query example:where rendereddescription equals "remotedesktop connection")
+access level can be at resource or workspace level(if setted to workspace level, a user cannot view the logs at resources section)
+we can save the query at log analytics workspace and creat alert with it
+in advanced settings option of log analytics workspace, we can configure source, data collection events etc
+
+azure import/export for azure blob storage and file storage
+
+Rate limiting in alert:
+no more than 1 msg for every 5 mins
+no more than 1 voice mail for every 5 mins
+no more than 100 mails for every hour
+
+from the automation account service, add an automation account
+from automation script blade of the resource group, select deploy
+from template service, select the template then share the template to the web administrator
+
+vnetA(with one address space)peered to vnetB(with one address space)
+suppose a another address space needs to be added to vnetA and hosts in vnetA contact with hosts in vnetB--> so first disconnect the peering between A and B, join the new address space to vnetA, the create peering between vnetA and vnetB
+
+function app--> app settings--> enable ftp+ftps or ftps or disable
+autoscale in app service plan
+if vnet added to dns zone and the option auto registration is not enabled then its called resolution vnet, we have to make the A records for it
+
+
+
+some license of microsoft cannot be applied to some user becoz of usage location, so go to user--> profile--> settings--> change the location
+users without usage location specified will inherit the location of the directory itself
+
+az vm deallocate
+az vm generalize
+az image create
+
+
+CDN--> origin type and origin hostname
+origin type:
+webapp
+cloud service
+storage
+custom origin
+
+in order to use azure data box:
+use one of the subscriptions,
+1.microsoft enterprise agreement
+2.cloud solution provider
+3.mnicrosoft azure sponsership
+dont use pay-as-you-go basis one
+
+az role definition create --role-definition @file.json
+
+PIM-->azure ad roles-->role settings
+Allow permanent eligible assignment
+Expire eligible assignment after
+Allow permanent active assignment
+Expire active assignment after
+
+in active-active vpn gateway two public ip address needed.
+in active-standby one public ip is enough
+
